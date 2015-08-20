@@ -6,6 +6,7 @@ package vgdev.dodge.props
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import vgdev.dodge.ContainerGame;
+	import vgdev.dodge.mechanics.TimeScale;
 	
 	/**
 	 * ...
@@ -26,7 +27,7 @@ package vgdev.dodge.props
 		private var speedLimitX:Number = 12;
 		private var speedLimitY:Number = 12;
 		private var thrust:Number = 3
-		private var friction:Number = .65;
+		private var friction:Number = .6;
 		private var haltThreshold:Number = .02;
 		
 		public function Player(_cg:ContainerGame)
@@ -104,13 +105,13 @@ package vgdev.dodge.props
 			
 			if (!keysDown[LEFT] && !keysDown[[RIGHT]])
 			{
-				dx *= friction;
+				dx -= (dx * friction * TimeScale.s_scale);
 				if (Math.abs(dx) < speedLimitX * haltThreshold)
 					dx = 0;
 			}
 			if (!keysDown[UP] && !keysDown[DOWN])
 			{
-				dy *= friction;
+				dy -= (dy * friction * TimeScale.s_scale);
 				if (Math.abs(dy) < speedLimitY * haltThreshold)
 					dy = 0;
 			}

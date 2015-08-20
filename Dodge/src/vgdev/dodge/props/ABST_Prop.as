@@ -2,6 +2,7 @@ package vgdev.dodge.props
 {
 	import flash.display.MovieClip;
 	import vgdev.dodge.ContainerGame;
+	import vgdev.dodge.mechanics.TimeScale;
 
 	/**
 	 * An abstract class containing functionality useful to all game objects.
@@ -45,7 +46,7 @@ package vgdev.dodge.props
 		protected function changeWithLimit(original:Number, change:Number,
 										   limLow:Number = int.MAX_VALUE, limHigh:Number = int.MAX_VALUE):Number
 		{
-			original += change;
+			original += change * TimeScale.s_scale;
 			if (original < limLow)
 				original = limLow;
 			else if (original > limHigh)
