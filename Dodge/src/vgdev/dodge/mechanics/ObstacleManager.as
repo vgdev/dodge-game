@@ -29,7 +29,7 @@ package vgdev.dodge.mechanics
 			{
 				for (i = toSpawn.length - 1; i >= 0; i--)
 				{
-					cg.addChild(toSpawn[i].mc_object);
+					cg.game.addChild(toSpawn[i].mc_object);
 					obstacles.push(toSpawn[i]);
 					toSpawn[i].activate();
 				}
@@ -40,8 +40,8 @@ package vgdev.dodge.mechanics
 				obstacle = obstacles[i] as ABST_Obstacle;
 				if (obstacle.step())
 				{
-					if (cg.contains(obstacle.mc_object))
-						cg.removeChild(obstacle.mc_object);
+					if (cg.game.contains(obstacle.mc_object))
+						cg.game.removeChild(obstacle.mc_object);
 					obstacles.splice(i, 1);
 					obstacle = null;
 				}

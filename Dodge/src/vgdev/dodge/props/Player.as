@@ -114,13 +114,13 @@ package vgdev.dodge.props
 			
 			if (!keysDown[LEFT] && !keysDown[[RIGHT]])
 			{
-				dx -= (dx * friction * TimeScale.s_scale);
+				dx -= (dx * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : 2);
 				if (Math.abs(dx) < speedLimitX * haltThreshold)
 					dx = 0;
 			}
 			if (!keysDown[UP] && !keysDown[DOWN])
 			{
-				dy -= (dy * friction * TimeScale.s_scale);
+				dy -= (dy * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : 2);
 				if (Math.abs(dy) < speedLimitY * haltThreshold)
 					dy = 0;
 			}
@@ -131,7 +131,7 @@ package vgdev.dodge.props
 			switch (direction)
 			{
 				case UP:
-					dy = changeWithLimit(dy, -amount, -speedLimitY, speedLimitY);
+					dy = changeWithLimit(dy, -amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitY, speedLimitY);
 					if (keysDown[RIGHT])
 						mc_object.rotation = -45;
 					else if (keysDown[LEFT])
@@ -140,7 +140,7 @@ package vgdev.dodge.props
 						mc_object.rotation = -90;
 				break;
 				case DOWN:
-					dy = changeWithLimit(dy, amount, -speedLimitY, speedLimitY);
+					dy = changeWithLimit(dy, amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitY, speedLimitY);
 					if (keysDown[RIGHT])
 						mc_object.rotation = 45;
 					else if (keysDown[LEFT])
@@ -149,7 +149,7 @@ package vgdev.dodge.props
 						mc_object.rotation = 90;
 				break;
 				case LEFT:
-					dx = changeWithLimit(dx, -amount, -speedLimitX, speedLimitX);
+					dx = changeWithLimit(dx, -amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitX, speedLimitX);
 					if (keysDown[UP])
 						mc_object.rotation = -135;
 					else if (keysDown[DOWN])
@@ -158,7 +158,7 @@ package vgdev.dodge.props
 						mc_object.rotation = 180;
 				break;
 				case RIGHT:
-					dx = changeWithLimit(dx, amount, -speedLimitX, speedLimitX);
+					dx = changeWithLimit(dx, amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitX, speedLimitX);
 					if (keysDown[UP])
 						mc_object.rotation = 135;
 					else if (keysDown[DOWN])

@@ -2,6 +2,8 @@ package vgdev.dodge.props
 {
 	import flash.display.MovieClip;
 	import vgdev.dodge.ContainerGame;
+	import vgdev.dodge.mechanics.TimeScale;
+	
 	/**
 	 * ...
 	 * @author Alexander Huynh
@@ -14,13 +16,13 @@ package vgdev.dodge.props
 		public var spawnTime:int = 30;
 		
 		/// Frames to keep the telegraph as dangerous
-		public var activeTime:int = 1;
+		public var activeTime:int = 3;
 		
 		/// Frames to fade the telegraph - no damage during this time
 		public var despawnTime:int = 10;
 		
 		/// Current counter
-		public var currentTime:int = 0;
+		public var currentTime:Number = 0;
 		
 		protected const STATE_WAIT:int = 0;
 		protected const STATE_SPAWN:int = 1;
@@ -39,14 +41,34 @@ package vgdev.dodge.props
 			
 			// TODO set up mc_object
 			mc_object = new MovieClip();
-			mc_object.graphics.lineStyle(1, 0xFFFFFF, 1);
-			mc_object.graphics.beginFill(0xFFFFFF, .7);
-			mc_object.graphics.drawRect( -50, -50, 100, 100);
-			mc_object.graphics.endFill();
+			mc_object.main = new MovieClip();
+			mc_object.addChild(mc_object.main);
+			mc_object.main.graphics.lineStyle(1, 0xFF0000, 1);
+			mc_object.main.graphics.beginFill(0xFF0000, .2);
+			if (_params["circle"])
+				mc_object.main.graphics.drawCircle(0, 0, 50);
+			else
+				mc_object.main.graphics.drawRect( -50, -50, 100, 100);
+			mc_object.main.graphics.endFill();
+			
+			mc_object.tele = new MovieClip();
+			mc_object.addChild(mc_object.tele);
+			mc_object.tele.graphics.lineStyle(1, 0xFF0000, 1);
+			mc_object.tele.graphics.beginFill(0xFF0000, .7);
+			if (_params["circle"])
+				mc_object.tele.graphics.drawCircle(0, 0, 50);
+			else
+				mc_object.tele.graphics.drawRect( -50, -50, 100, 100);
+			mc_object.tele.graphics.endFill();
 			cg.addChild(mc_object);
 			
+			// TODO
 			mc_object.x = _params["x"];
 			mc_object.y = _params["y"];
+			if (_params["scale"])
+				mc_object.scaleX = mc_object.scaleY = _params["scale"];
+			if (_params["spawn"])
+				spawnTime = _params["spawn"];
 			
 			mc_object.visible = false;
 		}
@@ -65,30 +87,34 @@ package vgdev.dodge.props
 		
 		override public function step():Boolean
 		{
+			currentTime += TimeScale.s_scale;
+			
 			switch (currentState)
 			{
 				case STATE_WAIT:
 				break;
 				case STATE_SPAWN:
 					updatePosition();
-					mc_object.alpha = .8 * (currentTime / spawnTime) + .2;		// TODO remove temporary
-					if (++currentTime == spawnTime)
+					mc_object.tele.scaleX = mc_object.tele.scaleY = currentTime / spawnTime;
+					if (currentTime >= spawnTime)
 					{
 						currentState = STATE_ACTIVE;
 						currentTime = 0;
+						mc_object.tele.scaleX = mc_object.tele.scaleY = 1;
+						mc_object.alpha = 1;
 					}
 				break;
 				case STATE_ACTIVE:
 					updatePosition();
-					if (++currentTime == activeTime)
+					if (currentTime >= activeTime)
 					{
 						currentState = STATE_DESPAWN;
 						currentTime = 0;
 					}
 				break;
 				case STATE_DESPAWN:
-					mc_object.alpha = 1 - (currentState / despawnTime);
-					if (++currentTime == despawnTime)
+					mc_object.alpha = 1 - (currentTime / despawnTime);
+					if (currentTime >= despawnTime)
 					{
 						currentState = STATE_DEAD;
 						completed = true;

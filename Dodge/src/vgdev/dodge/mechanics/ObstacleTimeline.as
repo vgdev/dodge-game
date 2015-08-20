@@ -9,11 +9,13 @@ package vgdev.dodge.mechanics
 	public class ObstacleTimeline 
 	{
 		public var timeline:Object;
-		public var frameNow:int = 0;
+		public var canActivate:Object;
+		public var frameNow:Number = 0;
 		
 		public function ObstacleTimeline() 
 		{
 			timeline = new Object();
+			canActivate = new Object();
 		}
 		
 		public function addObstacle(obstacle:ABST_Obstacle, frame:int):void
@@ -21,11 +23,18 @@ package vgdev.dodge.mechanics
 			if (timeline[frame] == null)
 				timeline[frame] = [];
 			timeline[frame].push(obstacle);
+			canActivate[frame] = true;
 		}
 		
 		public function step():Array
 		{
-			return timeline[frameNow++];
+			frameNow += TimeScale.s_scale;
+			if (canActivate[int(frameNow)])
+			{
+				canActivate[int(frameNow)] = false;
+				return timeline[int(frameNow)];
+			}
+			return null;
 		}
 	}
 }
