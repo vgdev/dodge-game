@@ -1,6 +1,7 @@
 ﻿package vgdev.dodge
 {
 	import flash.events.Event;
+	import vgdev.dodge.props.Player;
 	
 	/**
 	 * Primary game container and controller.
@@ -11,6 +12,8 @@
 	{		
 		public var engine:Engine;		// the game's Engine
 		public var game:SWC_Game;		// the Game SWC, containing all the base assets
+		
+		public var player:Player;
 
 		/**
 		 * A MovieClip containing all of a Dodge level.
@@ -20,6 +23,13 @@
 		{
 			super();
 			engine = eng;
+			game = new SWC_Game();
+			addChild(game);
+			for (var i:int = 0; i < 100; i++)
+				game.mc_bg.addChild(new StarTemp());
+				
+			player = new Player(this);
+			game.addChild(player.mc_object);
 		}
 
 		/**
@@ -28,6 +38,7 @@
 		 */
 		override public function step():Boolean
 		{			
+			player.step();
 			return completed;			// return the state of the container (if true, it is done)
 		}
 

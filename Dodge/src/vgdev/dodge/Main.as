@@ -18,7 +18,7 @@ package vgdev.dodge
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			addChild(new Engine());
+			stage.addChild(new Engine());
 		}
 	}
 }

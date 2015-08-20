@@ -2,15 +2,19 @@ package vgdev.dodge
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 
 	/**
 	 * ...
 	 * @author Alexander Huynh
 	 */
-	public class Engine 
+	public class Engine extends MovieClip
 	{
-		private const STATE_MENU = 0;
-		private const STATE_GAME = 1;
+		private const STAGE_WIDTH:int = 800;
+		private const STAGE_HEIGHT:int = 600;
+		
+		private const STATE_MENU:int = 0;
+		private const STATE_GAME:int = 1;
 		
 		private var gameState:int = STATE_MENU;
 		private var container:MovieClip;
@@ -19,6 +23,8 @@ package vgdev.dodge
 		{
 			addEventListener(Event.ENTER_FRAME, step);					// primary game loop firer
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			trace("ENGINE: Constructor");
 		}
 		
 		/**
@@ -31,7 +37,7 @@ package vgdev.dodge
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			
-			container = new ContainerMenu(this);
+			switchToContainer(new ContainerMenu(this), STAGE_WIDTH / 2, STAGE_HEIGHT / 2);
 		}
 		
 		/**
@@ -42,34 +48,34 @@ package vgdev.dodge
 		 */
 		public function step(e:Event):void
 		{
-			switch (gameState)			// determine which new container to go to next
+			if (container.step())
 			{
-				case 0:
-					containerGame = new ContainerGame(this, level, true);
-					gameState = 1;
-					SoundManager.play("sfx_elevator");
-					startBGM();
-					addChildAt(containerGame, 0);
-				break;
-				case 1:
-					if (retryFlag)
-					{
-						containerGame = new ContainerGame(this, level, false);
-						addChildAt(containerGame, 0);
-						startBGM();
-					}
-					else if (nextFlag)
-					{
-						
-					}
-				break;
-			}		
+				switch (gameState)			// determine which new container to go to next
+				{
+					case STATE_MENU:
+						switchToContainer(new ContainerGame(this), STAGE_WIDTH / 2, STAGE_HEIGHT / 2);
+						gameState = STATE_GAME;
+					break;
+					case STATE_GAME:
+						switchToContainer(new ContainerMenu(this), STAGE_WIDTH / 2, STAGE_HEIGHT / 2);
+						gameState = STATE_MENU;
+					break;
+				}
+			}
 		}
 		
-		private function switchToContainer(container:ABST_Container):void
+		private function switchToContainer(containerNew:ABST_Container, offX:Number = 0, offY:Number = 0):void
 		{
 			if (container && contains(container))
-				
+			{
+				removeChild(container);
+				container = null;
+			}
+			trace(offX + " " + offY);
+			container = containerNew;
+			container.x += offX;
+			container.y += offY;
+			addChild(container);
 		}
 		
 		/**

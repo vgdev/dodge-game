@@ -24,7 +24,7 @@
 			eng = _eng;
 			
 			// set up the MovieCllip
-			swc = new SWC_ContainerMenu();
+			swc = new SWC_MainMenu();
 			addChild(swc);
 			
 			// set up the main menu
@@ -53,7 +53,7 @@
 			if (swc && contains(swc))
 				removeChild(swc);
 			swc = null;
-			engine = null;
+			eng = null;
 		}
 	}
 }
