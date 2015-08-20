@@ -1,6 +1,9 @@
 ﻿package vgdev.dodge
 {
 	import flash.events.Event;
+	import vgdev.dodge.mechanics.ObstacleManager;
+	import vgdev.dodge.mechanics.ObstacleTimeline;
+	import vgdev.dodge.props.ABST_Obstacle;
 	import vgdev.dodge.props.Player;
 	import vgdev.dodge.mechanics.TimeScale;
 	
@@ -15,6 +18,9 @@
 		public var game:SWC_Game;		// the Game SWC, containing all the base assets
 		
 		public var player:Player;
+		
+		private var obstacleTimeline:ObstacleTimeline;
+		private var obstacleManager:ObstacleManager;
 
 		/**
 		 * A MovieClip containing all of a Dodge level.
@@ -31,6 +37,14 @@
 				
 			player = new Player(this);
 			game.addChild(player.mc_object);
+			
+			// TODO make better later
+			obstacleTimeline = new ObstacleTimeline();
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), 30);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-100, "y":100}), 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":-100}), 90);
+			
+			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 		}
 
 		/**
@@ -40,6 +54,7 @@
 		override public function step():Boolean
 		{			
 			player.step();
+			obstacleManager.step();
 			
 			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
 			

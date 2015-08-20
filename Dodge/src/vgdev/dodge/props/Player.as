@@ -20,9 +20,6 @@ package vgdev.dodge.props
 		private const DOWN:int = 3;
 		private const TIME:int = 10;
 		
-		private var dx:Number = 0;
-		private var dy:Number = 0;
-		
 		private var keysDown:Object = {UP:false, LEFT:false, RIGHT:false, DOWN:false, TIME:false};
 		
 		private var speedLimitX:Number = 12;

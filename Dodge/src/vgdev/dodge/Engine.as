@@ -23,8 +23,6 @@ package vgdev.dodge
 		{
 			addEventListener(Event.ENTER_FRAME, step);					// primary game loop firer
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
-			trace("ENGINE: Constructor");
 		}
 		
 		/**
@@ -71,7 +69,6 @@ package vgdev.dodge
 				removeChild(container);
 				container = null;
 			}
-			trace(offX + " " + offY);
 			container = containerNew;
 			container.x += offX;
 			container.y += offY;

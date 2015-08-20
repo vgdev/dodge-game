@@ -17,6 +17,9 @@ package vgdev.dodge.props
 		public var mc_object:MovieClip;
 		
 		protected var completed:Boolean = false;
+		
+		protected var dx:Number = 0;
+		protected var dy:Number = 0;
 
 		/**
 		 * Should only be called through super(), never instantiated.
