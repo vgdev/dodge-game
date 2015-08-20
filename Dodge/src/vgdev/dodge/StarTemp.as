@@ -7,6 +7,7 @@ package vgdev.dodge
  import flash.display.Sprite;
  import flash.events.Event;
  import flash.geom.Point;
+ import vgdev.dodge.mechanics.TimeScale;
  /**
   * TEMPORARY FILE
   */
@@ -33,7 +34,7 @@ package vgdev.dodge
   
   private function update(e:Event):void 
   {
-   d*= acceleration + (speed*0.25); 
+   d -= (d - (d * (acceleration + (speed*0.25)))) * TimeScale.s_scale; 
    alpha= d/500; // fades in the stars as they get closer.
    x = stageCenter.x + Math.cos(r) * d/2;
    y = stageCenter.y + Math.sin(r) * d / 2;

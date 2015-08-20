@@ -2,6 +2,7 @@
 {
 	import flash.events.Event;
 	import vgdev.dodge.props.Player;
+	import vgdev.dodge.mechanics.TimeScale;
 	
 	/**
 	 * Primary game container and controller.
@@ -39,6 +40,9 @@
 		override public function step():Boolean
 		{			
 			player.step();
+			
+			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
+			
 			return completed;			// return the state of the container (if true, it is done)
 		}
 

@@ -18,11 +18,12 @@ package vgdev.dodge.props
 		private const UP:int = 1;
 		private const LEFT:int = 2;
 		private const DOWN:int = 3;
+		private const TIME:int = 10;
 		
 		private var dx:Number = 0;
 		private var dy:Number = 0;
 		
-		private var keysDown:Object = {UP:false, LEFT:false, RIGHT:false, DOWN:false};
+		private var keysDown:Object = {UP:false, LEFT:false, RIGHT:false, DOWN:false, TIME:false};
 		
 		private var speedLimitX:Number = 12;
 		private var speedLimitY:Number = 12;
@@ -56,6 +57,11 @@ package vgdev.dodge.props
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
 			
+			if (keysDown[TIME])
+				TimeScale.slowDown();
+			else
+				TimeScale.speedUp();
+			
 			return completed;
 		}
 		
@@ -75,6 +81,9 @@ package vgdev.dodge.props
 				case Keyboard.D:
 					keysDown[RIGHT] = true;
 				break;
+				case Keyboard.SHIFT:
+					keysDown[TIME] = true;
+				break;
 			}
 		}
 		
@@ -93,6 +102,9 @@ package vgdev.dodge.props
 				break;
 				case Keyboard.D:
 					keysDown[RIGHT] = false;
+				break;
+				case Keyboard.SHIFT:
+					keysDown[TIME] = false;
 				break;
 			}
 		}
