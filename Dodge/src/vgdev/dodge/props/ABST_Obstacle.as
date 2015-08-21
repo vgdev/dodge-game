@@ -1,5 +1,7 @@
 package vgdev.dodge.props 
 {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.mechanics.TimeScale;
@@ -32,6 +34,12 @@ package vgdev.dodge.props
 		
 		private var params:Object;
 		
+		public var isBitmap:Boolean = false;
+		public var bitmapData:BitmapData;
+		
+		[Embed(source = "../../../../img/doge.png")]
+		public static var Bitmap_Doge:Class;
+		
 		public function ABST_Obstacle(_cg:ContainerGame, _params:Object)
 		{
 			super(_cg);
@@ -39,23 +47,44 @@ package vgdev.dodge.props
 			
 			// TODO set up mc_object
 			mc_object = new MovieClip();
-			mc_object.graphics.lineStyle(1, 0xFF0000, 1);
-			mc_object.graphics.beginFill(0xFF0000, .2);
-			if (_params["circle"])
-				mc_object.graphics.drawCircle(0, 0, 50);
-			else
-				mc_object.graphics.drawRect( -50, -50, 100, 100);
-			mc_object.graphics.endFill();
-			
 			mc_object.tele = new MovieClip();
 			mc_object.addChild(mc_object.tele);
-			mc_object.tele.graphics.lineStyle(1, 0xFF0000, 1);
-			mc_object.tele.graphics.beginFill(0xFF0000, .7);
-			if (_params["circle"])
-				mc_object.tele.graphics.drawCircle(0, 0, 50);
+			
+			if (!_params["image"])
+			{
+				mc_object.graphics.lineStyle(1, 0xFF0000, 1);
+				mc_object.graphics.beginFill(0xFF0000, .2);
+				if (_params["circle"])
+					mc_object.graphics.drawCircle(0, 0, 50);
+				else
+					mc_object.graphics.drawRect( -50, -50, 100, 100);
+				mc_object.graphics.endFill();
+				
+				mc_object.tele.graphics.lineStyle(1, 0xFF0000, 1);
+				mc_object.tele.graphics.beginFill(0xFF0000, .7);
+				if (_params["circle"])
+					mc_object.tele.graphics.drawCircle(0, 0, 50);
+				else
+					mc_object.tele.graphics.drawRect( -50, -50, 100, 100);
+				mc_object.tele.graphics.endFill();
+			}
 			else
-				mc_object.tele.graphics.drawRect( -50, -50, 100, 100);
-			mc_object.tele.graphics.endFill();
+			{
+				isBitmap = true;
+				//trace("Adding: " + (new Bitmap_Doge()));
+				//_params["image"].x -= _params["image"].width * .5;		// center the image
+				//_params["image"].y -= _params["image"].height * .5;
+				var img:Bitmap = new Bitmap_Doge();
+				bitmapData = img.bitmapData;
+				img.x -= img.width * .5;
+				img.y -= img.height * .5;
+				mc_object.addChild(img);
+				img = new Bitmap_Doge();
+				img.x -= img.width * .5;
+				img.y -= img.height * .5;
+				mc_object.tele.addChild(img);
+			}
+			
 			cg.addChild(mc_object);
 			
 			// TODO
@@ -65,7 +94,10 @@ package vgdev.dodge.props
 			mc_object.y = setParam("y", 0);
 			dx = setParam("dx", 0);
 			dy = setParam("dy", 0);
+			mc_object.rotation = setParam("rot", 0);
 			mc_object.scaleX = mc_object.scaleY = setParam("scale", 1);
+			mc_object.scaleX = setParam("scaleX", mc_object.scaleX);
+			mc_object.scaleY = setParam("scaleY", mc_object.scaleY);
 			
 			mc_object.visible = false;
 		}

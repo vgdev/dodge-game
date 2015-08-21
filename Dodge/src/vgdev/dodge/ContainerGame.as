@@ -19,8 +19,8 @@
 		
 		public var player:Player;
 		
-		private var obstacleTimeline:ObstacleTimeline;
-		private var obstacleManager:ObstacleManager;
+		public var obstacleTimeline:ObstacleTimeline;
+		public var obstacleManager:ObstacleManager;
 		
 		public var gameActive:Boolean = true;		// TODO change later
 
@@ -40,21 +40,18 @@
 			player = new Player(this);
 			game.addChild(player.mc_object);
 			
+			// TODO make better later
+			obstacleTimeline = new ObstacleTimeline();
+			
 			var ONE:int = 60;
 			var TWO:int = 180;
 			var THREE:int = 270;
 			var FOUR:int = 500;
 			var FIVE:int = 700;
 			
-			// TODO make better later
-			obstacleTimeline = new ObstacleTimeline();
-			
-			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 90);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 180);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 270);*/
-			
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
+			// TODO JSON
+			// demo level 1
+			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-100, "y":100}), ONE + 30);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":100, "y": -100} ), ONE + 60);
 			
@@ -97,7 +94,54 @@
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), FIVE + 200);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), FIVE + 200);*/
+			
+			// demo level 2
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-150, "scaleX":4, "scaleY":3}), ONE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":150, "scaleX":4, "scaleY":3}), ONE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":150, "scaleX":4, "scaleY":3}), ONE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-150, "scaleX":4, "scaleY":3}), ONE + 30);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":150, "scaleX":4, "scaleY":3}), ONE + 30);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":150, "scaleX":4, "scaleY":3}), ONE + 30);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-150, "scaleX":4, "scaleY":3}), ONE + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-150, "scaleX":4, "scaleY":3}), ONE + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":150, "scaleX":4, "scaleY":3}), ONE + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-150, "scaleX":4, "scaleY":3}), ONE + 90);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-150, "scaleX":4, "scaleY":3}), ONE + 90);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":150, "scaleX":4, "scaleY":3}), ONE + 90);
+			
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-300, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), TWO);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-150, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), TWO + 20);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), TWO + 40);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":150, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), TWO + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":300, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), TWO + 80);
+			
+			THREE = 340;
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":300, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), THREE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":150, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), THREE + 20);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), THREE + 40);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-150, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), THREE + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-300, "y":0, "scaleX": 2, "scaleY":6, "spawn":60}), THREE + 80);
+			
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-400, "y":-300, "scale":12, "circle":true, "spawn":60}), FOUR);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":400, "y":300, "scale":12, "circle":true, "spawn":60}), FOUR);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":400, "y":-300, "scale":12, "circle":true, "spawn":60}), FOUR + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-400, "y":300, "scale":12, "circle":true, "spawn":60}), FOUR + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":-300, "scale":8, "circle":true, "spawn":60}), FOUR + 120);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":300, "scale":8, "circle":true, "spawn":60}), FOUR + 120);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":400, "y":0, "scale":8, "circle":true, "spawn":60}), FOUR + 180);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-400, "y":0, "scale":8, "circle":true, "spawn":60}), FOUR + 180);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":-300, "scale":3, "circle":true, "spawn":60}), FOUR + 180);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":0, "y":300, "scale":3, "circle":true, "spawn":60 } ), FOUR + 180);
+			
+			// demo level 3
+			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":1, "image": "doge",  "active":60}), ONE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-250, "y":-100, "scale":4, "image": "doge",  "spawn":60, "active":60}), ONE + 30);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":250, "y":-150, "scale":2, "image": "doge"}), ONE + 60);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":180, "y":-50, "scale":2, "image": "doge"}), ONE + 75);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":120, "y":20, "scale":3, "image": "doge"}), ONE + 90);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":50, "y":80, "scale":3, "image": "doge"}), ONE + 105);*/
+			
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 		}

@@ -36,7 +36,7 @@ package vgdev.dodge.mechanics
 				}
 			}
 			
-			var ptPlayer:Point = (new Point(cg.player.mc_object.x, cg.player.mc_object.y));
+			var ptPlayer:Point = (new Point(cg.player.mc_object.x + 400, cg.player.mc_object.y + 300));
 			
 			for (i = obstacles.length - 1; i >= 0; i--)
 			{
@@ -53,9 +53,11 @@ package vgdev.dodge.mechanics
 					var ptObst:Point = new Point(obstacle.mc_object.x, obstacle.mc_object.y);
 					if (obstacle.mc_object.hitTestObject(cg.player.mc_object))
 					{
-						if (obstacle.mc_object.hitTestPoint(ptPlayer.x + 400, ptPlayer.y + 300, true))
+						if ((!obstacle.isBitmap && obstacle.mc_object.hitTestPoint(ptPlayer.x, ptPlayer.y, true)) ||
+							 HitTester.realHitTest(obstacle.mc_object, ptPlayer))
 						{
 							cg.player.kill();
+							//trace("DEAD " + cg.obstacleTimeline.frameNow);
 						}
 					}
 				}
