@@ -47,7 +47,7 @@ package vgdev.dodge.props
 		}
 		
 		protected function changeWithLimit(original:Number, change:Number,
-										   limLow:Number = int.MAX_VALUE, limHigh:Number = int.MAX_VALUE):Number
+										   limLow:Number = int.MIN_VALUE, limHigh:Number = int.MAX_VALUE):Number
 		{
 			original += change * TimeScale.s_scale;
 			if (original < limLow)

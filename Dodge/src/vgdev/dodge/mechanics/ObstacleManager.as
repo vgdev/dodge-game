@@ -50,15 +50,11 @@ package vgdev.dodge.mechanics
 				}
 				else if (cg.gameActive && obstacle.currentState == obstacle.STATE_ACTIVE)
 				{
-					//var ptObst:Point = obstacle.mc_object.localToGlobal(new Point(obstacle.mc_object.x, obstacle.mc_object.y));
 					var ptObst:Point = new Point(obstacle.mc_object.x, obstacle.mc_object.y);
 					if (obstacle.mc_object.hitTestObject(cg.player.mc_object))
 					{
-						//var ptPlayer:Point = obstacle.mc_object.globalToLocal(new Point(cg.player.mc_object.x, cg.player.mc_object.y));
-						//trace("Hit! Checking\t" + ptObst.x + "," + ptObst.y + "\t" + ptPlayer.x + "," + ptPlayer.y);
 						if (obstacle.mc_object.hitTestPoint(ptPlayer.x + 400, ptPlayer.y + 300, true))
 						{
-							//trace("DEAD");
 							cg.player.kill();
 						}
 					}

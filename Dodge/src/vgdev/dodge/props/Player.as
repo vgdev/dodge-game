@@ -181,8 +181,9 @@ package vgdev.dodge.props
 			if (!alive) return;
 			alive = false;
 			
+			mc_object.play();
+			
 			cg.gameActive = false;
-			mc_object.visible = false;
 			dx = dx = 0;
 		}
 		

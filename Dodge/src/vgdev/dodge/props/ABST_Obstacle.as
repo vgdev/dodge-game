@@ -9,9 +9,7 @@ package vgdev.dodge.props
 	 * @author Alexander Huynh
 	 */
 	public class ABST_Obstacle extends ABST_Prop
-	{
-		public var obstName:String;
-		
+	{		
 		/// Frames to show the telegraph - no damage during this time
 		public var spawnTime:int = 30;
 		
@@ -32,12 +30,12 @@ package vgdev.dodge.props
 		
 		public var currentState:int = STATE_WAIT;
 		
-		/// How many frames after the level starts to trigger this obstacle
-		public var activationFrame:int;
+		private var params:Object;
 		
 		public function ABST_Obstacle(_cg:ContainerGame, _params:Object)
 		{
 			super(_cg);
+			params = _params;
 			
 			// TODO set up mc_object
 			mc_object = new MovieClip();
@@ -61,14 +59,22 @@ package vgdev.dodge.props
 			cg.addChild(mc_object);
 			
 			// TODO
-			mc_object.x = _params["x"];
-			mc_object.y = _params["y"];
-			if (_params["scale"])
-				mc_object.scaleX = mc_object.scaleY = _params["scale"];
-			if (_params["spawn"])
-				spawnTime = _params["spawn"];
+			spawnTime = setParam("spawn", spawnTime);
+			activeTime = setParam("active", activeTime);
+			mc_object.x = setParam("x", 0);
+			mc_object.y = setParam("y", 0);
+			dx = setParam("dx", 0);
+			dy = setParam("dy", 0);
+			mc_object.scaleX = mc_object.scaleY = setParam("scale", 1);
 			
 			mc_object.visible = false;
+		}
+		
+		protected function setParam(key:String, fallback:*):*
+		{
+			if (params[key])
+				return params[key];
+			return fallback;
 		}
 		
 		public function activate():void
@@ -123,8 +129,8 @@ package vgdev.dodge.props
 		
 		protected function updatePosition():void
 		{
-			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
-			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+			mc_object.x = changeWithLimit(mc_object.x, dx);
+			mc_object.y = changeWithLimit(mc_object.y, dy);
 		}
 	}
 }
