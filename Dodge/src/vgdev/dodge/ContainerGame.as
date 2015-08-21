@@ -1,6 +1,7 @@
 ﻿package vgdev.dodge
 {
 	import flash.events.Event;
+	import flash.media.Sound;
 	import vgdev.dodge.mechanics.ObstacleManager;
 	import vgdev.dodge.mechanics.ObstacleTimeline;
 	import vgdev.dodge.props.ABST_Obstacle;
@@ -23,6 +24,9 @@
 		public var obstacleManager:ObstacleManager;
 		
 		public var gameActive:Boolean = true;		// TODO change later
+		
+		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
+		private var bgm_main:Class;
 
 		/**
 		 * A MovieClip containing all of a Dodge level.
@@ -40,6 +44,10 @@
 			player = new Player(this);
 			game.addChild(player.mc_object);
 			
+			// TODO change later
+			var bgm:Sound = new bgm_main();
+			bgm.play();
+			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();
 			
@@ -51,7 +59,9 @@
 			
 			// TODO JSON
 			// demo level 1
-			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
+			if (false)
+			{
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-100, "y":100}), ONE + 30);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":100, "y": -100} ), ONE + 60);
 			
@@ -94,9 +104,12 @@
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-200, "scale":5, "circle":true, "spawn":60}), FIVE + 200);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), FIVE + 200);*/
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), FIVE + 200);
+			}
 			
 			// demo level 2
+			if (true)
+			{
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-150, "scaleX":4, "scaleY":3}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":150, "scaleX":4, "scaleY":3}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":150, "scaleX":4, "scaleY":3}), ONE);
@@ -133,15 +146,18 @@
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-400, "y":0, "scale":8, "circle":true, "spawn":60}), FOUR + 180);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":-300, "scale":3, "circle":true, "spawn":60}), FOUR + 180);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":0, "y":300, "scale":3, "circle":true, "spawn":60 } ), FOUR + 180);
+			}
 			
 			// demo level 3
-			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":1, "image": "doge",  "active":60}), ONE);
+			if (false)
+			{
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":1, "image": "doge",  "active":60}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-250, "y":-100, "scale":4, "image": "doge",  "spawn":60, "active":60}), ONE + 30);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":250, "y":-150, "scale":2, "image": "doge"}), ONE + 60);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":180, "y":-50, "scale":2, "image": "doge"}), ONE + 75);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":120, "y":20, "scale":3, "image": "doge"}), ONE + 90);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":50, "y":80, "scale":3, "image": "doge"}), ONE + 105);*/
-			
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":50, "y":80, "scale":3, "image": "doge"}), ONE + 105);
+			}
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 		}
