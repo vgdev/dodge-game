@@ -28,6 +28,8 @@ package vgdev.dodge.props
 		private var friction:Number = .6;
 		private var haltThreshold:Number = .02;
 		
+		public var alive:Boolean = true;
+		
 		public function Player(_cg:ContainerGame)
 		{
 			super(_cg);
@@ -50,6 +52,9 @@ package vgdev.dodge.props
 		
 		override public function step():Boolean
 		{
+			if (!alive)
+				return completed;
+			
 			updateVelocity();
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
@@ -64,6 +69,8 @@ package vgdev.dodge.props
 		
 		public function downKeyboard(e:KeyboardEvent):void
 		{
+			if (!alive) return;
+			
 			switch (e.keyCode)
 			{
 				case Keyboard.W:
@@ -167,6 +174,16 @@ package vgdev.dodge.props
 						mc_object.rotation = 0;
 				break;
 			}
+		}
+		
+		public function kill():void
+		{
+			if (!alive) return;
+			alive = false;
+			
+			cg.gameActive = false;
+			mc_object.visible = false;
+			dx = dx = 0;
 		}
 		
 		public function getd():Point

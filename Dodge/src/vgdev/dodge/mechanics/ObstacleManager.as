@@ -1,5 +1,6 @@
 package vgdev.dodge.mechanics 
 {
+	import flash.geom.Point;
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.props.ABST_Obstacle;
 	/**
@@ -25,7 +26,7 @@ package vgdev.dodge.mechanics
 			var i:int;
 			
 			var toSpawn:Array = timeline.step();
-			if (toSpawn != null && toSpawn.length > 0)
+			if (cg.gameActive && toSpawn != null && toSpawn.length > 0)
 			{
 				for (i = toSpawn.length - 1; i >= 0; i--)
 				{
@@ -34,6 +35,8 @@ package vgdev.dodge.mechanics
 					toSpawn[i].activate();
 				}
 			}
+			
+			var ptPlayer:Point = (new Point(cg.player.mc_object.x, cg.player.mc_object.y));
 			
 			for (i = obstacles.length - 1; i >= 0; i--)
 			{
@@ -44,6 +47,21 @@ package vgdev.dodge.mechanics
 						cg.game.removeChild(obstacle.mc_object);
 					obstacles.splice(i, 1);
 					obstacle = null;
+				}
+				else if (cg.gameActive && obstacle.currentState == obstacle.STATE_ACTIVE)
+				{
+					//var ptObst:Point = obstacle.mc_object.localToGlobal(new Point(obstacle.mc_object.x, obstacle.mc_object.y));
+					var ptObst:Point = new Point(obstacle.mc_object.x, obstacle.mc_object.y);
+					if (obstacle.mc_object.hitTestObject(cg.player.mc_object))
+					{
+						//var ptPlayer:Point = obstacle.mc_object.globalToLocal(new Point(cg.player.mc_object.x, cg.player.mc_object.y));
+						//trace("Hit! Checking\t" + ptObst.x + "," + ptObst.y + "\t" + ptPlayer.x + "," + ptPlayer.y);
+						if (obstacle.mc_object.hitTestPoint(ptPlayer.x + 400, ptPlayer.y + 300, true))
+						{
+							//trace("DEAD");
+							cg.player.kill();
+						}
+					}
 				}
 			}
 		}

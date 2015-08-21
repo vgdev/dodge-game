@@ -21,6 +21,8 @@
 		
 		private var obstacleTimeline:ObstacleTimeline;
 		private var obstacleManager:ObstacleManager;
+		
+		public var gameActive:Boolean = true;		// TODO change later
 
 		/**
 		 * A MovieClip containing all of a Dodge level.
@@ -44,6 +46,12 @@
 			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();
+			
+			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 90);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 180);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":0, "y":0, "scale":6, "circle":true}), ONE + 270);*/
+			
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-100, "y":100}), ONE + 30);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":100, "y": -100} ), ONE + 60);
@@ -70,8 +78,11 @@
 		 * @return		completed, true if this container is done
 		 */
 		override public function step():Boolean
-		{			
-			player.step();
+		{
+			if (gameActive)
+			{
+				player.step();
+			}
 			obstacleManager.step();
 			
 			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
