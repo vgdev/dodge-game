@@ -9,32 +9,35 @@ package vgdev.dodge.props
 	import vgdev.dodge.mechanics.TimeScale;
 	
 	/**
-	 * ...
+	 * Instance of the player
 	 * @author Alexander Huynh
 	 */
 	public class Player extends ABST_Prop
 	{
+		// keys for use in keysDown
 		private const RIGHT:int = 0;
 		private const UP:int = 1;
 		private const LEFT:int = 2;
 		private const DOWN:int = 3;
 		private const TIME:int = 10;
 		
+		/// Map of key states
 		private var keysDown:Object = {UP:false, LEFT:false, RIGHT:false, DOWN:false, TIME:false};
 		
 		private var speedLimitX:Number = 12;
 		private var speedLimitY:Number = 12;
-		private var thrust:Number = 3
-		private var friction:Number = .6;
-		private var haltThreshold:Number = .02;
+		private var thrust:Number = 3;				// movement power
+		private var friction:Number = .6;			// speed reduction per frame
+		private var haltThreshold:Number = .02;		// reduce speed to 0 if speed is lower than (this amount * speedLimit)
+		private var thrustBonus:Number = 2;
+		private var frictionBonus:Number = 2;
 		
-		public var alive:Boolean = true;
+		public var alive:Boolean = true;			// if the player is alive and playable
 		
 		public function Player(_cg:ContainerGame)
 		{
 			super(_cg);
 			mc_object = new SWC_player();
-			
 			mc_object.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -50,15 +53,19 @@ package vgdev.dodge.props
 			cg.stage.addEventListener(KeyboardEvent.KEY_UP, upKeyboard);
 		}
 		
+		/**
+		 * Update the player
+		 * @return		true if the player is dead
+		 */
 		override public function step():Boolean
 		{
 			if (!alive)
 				return completed;
 			
 			updateVelocity();
-			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
-			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+			updatePosition();
 			
+			// handle time scale based on if the time scale key is down or not
 			if (keysDown[TIME])
 				TimeScale.slowDown();
 			else
@@ -67,6 +74,93 @@ package vgdev.dodge.props
 			return completed;
 		}
 		
+		/**
+		 * Update the player's x and y position based on its dx and dy
+		 */
+		private function updatePosition():void
+		{
+			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
+			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+		}
+		
+		/**
+		 * Update the player's dx and dy based on what keys are down
+		 */
+		private function updateVelocity():void
+		{
+			// apply thrust
+			for (var i:int = 0; i < 4; i++)
+				if (keysDown[i])
+					applyMovement(i, thrust);
+			
+			// apply friction - friction is increased if time scale is not normal (1)
+			if (!keysDown[LEFT] && !keysDown[[RIGHT]])
+			{
+				dx -= (dx * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : frictionBonus);
+				if (Math.abs(dx) < speedLimitX * haltThreshold)
+					dx = 0;
+			}
+			if (!keysDown[UP] && !keysDown[DOWN])
+			{
+				dy -= (dy * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : frictionBonus);
+				if (Math.abs(dy) < speedLimitY * haltThreshold)
+					dy = 0;
+			}
+		}
+		
+		/**
+		 * Changes the player's velocity, and updates the graphic's rotation
+		 * Movement speed bonus if time scale is not normal (1)
+		 * @param	direction		Direction to apply velocity change (UP, DOWN, LEFT, RIGHT)
+		 * @param	amount			Amount to change velocity by
+		 */
+		public function applyMovement(direction:int, amount:Number):void
+		{
+			switch (direction)
+			{
+				case UP:
+					dy = changeWithLimit(dy, -amount * (TimeScale.s_scale == 1 ? 1 : thrustBonus), -speedLimitY, speedLimitY);
+					if (keysDown[RIGHT])
+						mc_object.rotation = -45;
+					else if (keysDown[LEFT])
+						mc_object.rotation = -135;
+					else
+						mc_object.rotation = -90;
+				break;
+				case DOWN:
+					dy = changeWithLimit(dy, amount * (TimeScale.s_scale == 1 ? 1 : thrustBonus), -speedLimitY, speedLimitY);
+					if (keysDown[RIGHT])
+						mc_object.rotation = 45;
+					else if (keysDown[LEFT])
+						mc_object.rotation = 135;
+					else
+						mc_object.rotation = 90;
+				break;
+				case LEFT:
+					dx = changeWithLimit(dx, -amount * (TimeScale.s_scale == 1 ? 1 : thrustBonus), -speedLimitX, speedLimitX);
+					if (keysDown[UP])
+						mc_object.rotation = -135;
+					else if (keysDown[DOWN])
+						mc_object.rotation = 135;
+					else
+						mc_object.rotation = 180;
+				break;
+				case RIGHT:
+					dx = changeWithLimit(dx, amount * (TimeScale.s_scale == 1 ? 1 : thrustBonus), -speedLimitX, speedLimitX);
+					if (keysDown[UP])
+						mc_object.rotation = 135;
+					else if (keysDown[DOWN])
+						mc_object.rotation = -135;
+					else
+						mc_object.rotation = 0;
+				break;
+			}
+		}
+		
+		/**
+		 * Update state of keys when a key is pressed
+		 * @param	e		KeyboardEvent with info
+		 */
 		public function downKeyboard(e:KeyboardEvent):void
 		{
 			if (!alive) return;
@@ -91,6 +185,10 @@ package vgdev.dodge.props
 			}
 		}
 		
+		/**
+		 * Update state of keys when a key is released
+		 * @param	e		KeyboardEvent with info
+		 */
 		public function upKeyboard(e:KeyboardEvent):void
 		{
 			switch (e.keyCode)
@@ -113,69 +211,10 @@ package vgdev.dodge.props
 			}
 		}
 		
-		private function updateVelocity():void
-		{
-			for (var i:int = 0; i < 4; i++)
-				if (keysDown[i])
-					applyMovement(i, thrust);
-			
-			if (!keysDown[LEFT] && !keysDown[[RIGHT]])
-			{
-				dx -= (dx * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : 2);
-				if (Math.abs(dx) < speedLimitX * haltThreshold)
-					dx = 0;
-			}
-			if (!keysDown[UP] && !keysDown[DOWN])
-			{
-				dy -= (dy * friction * TimeScale.s_scale) * (TimeScale.s_scale == 1 ? 1 : 2);
-				if (Math.abs(dy) < speedLimitY * haltThreshold)
-					dy = 0;
-			}
-		}
-		
-		public function applyMovement(direction:int, amount:Number):void
-		{
-			switch (direction)
-			{
-				case UP:
-					dy = changeWithLimit(dy, -amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitY, speedLimitY);
-					if (keysDown[RIGHT])
-						mc_object.rotation = -45;
-					else if (keysDown[LEFT])
-						mc_object.rotation = -135;
-					else
-						mc_object.rotation = -90;
-				break;
-				case DOWN:
-					dy = changeWithLimit(dy, amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitY, speedLimitY);
-					if (keysDown[RIGHT])
-						mc_object.rotation = 45;
-					else if (keysDown[LEFT])
-						mc_object.rotation = 135;
-					else
-						mc_object.rotation = 90;
-				break;
-				case LEFT:
-					dx = changeWithLimit(dx, -amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitX, speedLimitX);
-					if (keysDown[UP])
-						mc_object.rotation = -135;
-					else if (keysDown[DOWN])
-						mc_object.rotation = 135;
-					else
-						mc_object.rotation = 180;
-				break;
-				case RIGHT:
-					dx = changeWithLimit(dx, amount * (TimeScale.s_scale == 1 ? 1 : 2), -speedLimitX, speedLimitX);
-					if (keysDown[UP])
-						mc_object.rotation = 135;
-					else if (keysDown[DOWN])
-						mc_object.rotation = -135;
-					else
-						mc_object.rotation = 0;
-				break;
-			}
-		}
-		
+		/**
+		 * Kill the player
+		 * Only works if the player is alive
+		 */
 		public function kill():void
 		{
 			if (!alive) return;
@@ -187,6 +226,10 @@ package vgdev.dodge.props
 			dx = dx = 0;
 		}
 		
+		/**
+		 * Get the velocity of the player
+		 * @return		A point containing (dx, dy)
+		 */
 		public function getd():Point
 		{
 			return new Point(dx, dy);

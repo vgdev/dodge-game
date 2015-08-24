@@ -1,6 +1,8 @@
 // For GATech VGDev Second Biannual Campus Demo
 // v1.0 Mar 04, 2013
 
+// Borrowed again for Dodge, Aug 2015
+
 package vgdev.dodge
 {
  import flash.display.Graphics;

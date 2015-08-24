@@ -5,7 +5,7 @@
 	import flash.events.MouseEvent;
 
 	/**
-	 * Main menu and level select screen.
+	 * Main menu and level select screen
 	 * 
 	 * @author Alexander Huynh
 	 */
@@ -15,8 +15,8 @@
 		public var swc:SWC_MainMenu;		// the actual MovieClip
 		
 		/**
-		 * A MovieClip handling the main menu.
-		 * @param	_eng			A reference to the Engine.
+		 * A MovieClip handling the main menu
+		 * @param	_eng			A reference to the Engine
 		 */
 		public function ContainerMenu(_eng:Engine)
 		{			
@@ -42,12 +42,10 @@
 
 		/**
 		 * Clean-up code
-		 * 
 		 * @param	e	the captured Event, unused
 		 */
 		protected function destroy(e:Event):void
 		{
-			//removeEventListener(Event.REMOVED_FROM_STAGE, destroy);
 			swc.btn_start.removeEventListener(MouseEvent.CLICK, onStart);
 			
 			if (swc && contains(swc))

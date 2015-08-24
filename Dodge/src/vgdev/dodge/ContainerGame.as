@@ -9,7 +9,7 @@
 	import vgdev.dodge.mechanics.TimeScale;
 	
 	/**
-	 * Primary game container and controller.
+	 * Primary game container and controller
 	 * 
 	 * @author Alexander Huynh
 	 */
@@ -25,22 +25,28 @@
 		
 		public var gameActive:Boolean = true;		// TODO change later
 		
+		// TODO move to SoundManager class
 		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
 		private var bgm_main:Class;
 
 		/**
-		 * A MovieClip containing all of a Dodge level.
-		 * @param	eng			A reference to the Engine.
+		 * A MovieClip containing all of a Dodge level
+		 * @param	eng			A reference to the Engine
 		 */
 		public function ContainerGame(eng:Engine)
 		{
 			super();
 			engine = eng;
+			
+			// set up the game MovieClip
 			game = new SWC_Game();
 			addChild(game);
+			
+			// TODO remove later, temporary background FX
 			for (var i:int = 0; i < 100; i++)
 				game.mc_bg.addChild(new StarTemp());
 				
+			// set up the player
 			player = new Player(this);
 			game.addChild(player.mc_object);
 			
@@ -163,7 +169,7 @@
 		}
 
 		/**
-		 * called by Engine every frame
+		 * Called by Engine every frame to update the game
 		 * @return		completed, true if this container is done
 		 */
 		override public function step():Boolean
@@ -174,6 +180,7 @@
 			}
 			obstacleManager.step();
 			
+			// TODO make better, shrink the game if time is slowed
 			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
 			
 			return completed;			// return the state of the container (if true, it is done)
@@ -181,13 +188,10 @@
 
 		/**
 		 * Clean-up code
-		 * 
 		 * @param	e	the captured Event, unused
 		 */
 		protected function destroy(e:Event):void
-		{
-			//removeEventListener(Event.REMOVED_FROM_STAGE, destroy);
-			
+		{			
 			if (game && contains(game))
 				removeChild(game);
 			game = null;
