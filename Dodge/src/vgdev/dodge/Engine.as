@@ -19,6 +19,10 @@ package vgdev.dodge
 		private var gameState:int = STATE_MENU;
 		private var container:MovieClip;
 		
+		public const RET_NORMAL:int = 0;
+		public const RET_RESTART:int = 1;
+		public var returnCode:int = RET_NORMAL;
+		
 		public function Engine() 
 		{
 			addEventListener(Event.ENTER_FRAME, step);					// primary game loop firer
@@ -51,8 +55,16 @@ package vgdev.dodge
 						gameState = STATE_GAME;
 					break;
 					case STATE_GAME:
+					if (returnCode == RET_NORMAL)
+					{
 						switchToContainer(new ContainerMenu(this), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
 						gameState = STATE_MENU;
+					}
+					else if (returnCode == RET_RESTART)
+					{
+						switchToContainer(new ContainerGame(this), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
+						gameState = STATE_GAME;
+					}
 					break;
 				}
 			}
@@ -75,6 +87,8 @@ package vgdev.dodge
 			container.x += offX;
 			container.y += offY;
 			addChild(container);
+			
+			returnCode = RET_NORMAL;
 		}
 		
 		/**

@@ -1,12 +1,15 @@
 ﻿package vgdev.dodge
 {
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	import flash.media.Sound;
 	import vgdev.dodge.mechanics.ObstacleManager;
 	import vgdev.dodge.mechanics.ObstacleTimeline;
 	import vgdev.dodge.props.ABST_Obstacle;
 	import vgdev.dodge.props.Player;
 	import vgdev.dodge.mechanics.TimeScale;
+	import flash.events.MouseEvent;
 	
 	/**
 	 * Primary game container and controller
@@ -24,6 +27,9 @@
 		public var obstacleManager:ObstacleManager;
 		
 		public var gameActive:Boolean = true;		// TODO change later
+		public var gamePaused:Boolean = false;
+		
+		private var overCounter:int = 0;
 		
 		// TODO move to SoundManager class
 		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
@@ -42,13 +48,21 @@
 			game = new SWC_Game();
 			addChild(game);
 			
+			game.mc_paused.visible = false;
+			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.CLICK, unpauseHelper);
+			game.mc_paused.menuPaused.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
+			game.mc_paused.menuPaused.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
+			game.mc_over.visible = false;
+			game.mc_over.menuOver.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
+			game.mc_over.menuOver.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
+			
 			// TODO remove later, temporary background FX
 			for (var i:int = 0; i < 100; i++)
 				game.mc_bg.addChild(new StarTemp());
 				
 			// set up the player
 			player = new Player(this);
-			game.addChild(player.mc_object);
+			game.container_player.addChild(player.mc_object);
 			
 			// TODO change later
 			var bgm:Sound = new bgm_main();
@@ -166,6 +180,40 @@
 			}
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
+			eng.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+		}
+		
+		private function downKeyboard(e:KeyboardEvent):void
+		{			
+			switch (e.keyCode)
+			{
+				case Keyboard.P:
+					if (gamePaused && game.mc_paused.currentFrameLabel == "hold")
+					{
+						unpauseHelper(null);
+					}
+					else if (game.mc_paused.currentFrame == 1)
+					{
+						game.mc_paused.gotoAndPlay("in");
+						gamePaused = true;
+					}
+				break;
+			}
+		}
+		
+		private function unpauseHelper(e:MouseEvent):void
+		{
+			game.mc_paused.gotoAndPlay("out");
+			game.mc_paused.addEventListener(Event.ENTER_FRAME, unpause);
+		}
+		
+		private function unpause(e:Event):void
+		{
+			if (game.mc_paused.currentFrame == 1)
+			{
+				game.mc_paused.removeEventListener(Event.ENTER_FRAME, unpause);
+				gamePaused = false;
+			}
 		}
 
 		/**
@@ -174,6 +222,24 @@
 		 */
 		override public function step():Boolean
 		{
+			// game over
+			if (!player.alive && overCounter < 45 && ++overCounter == 45)
+			{
+				game.mc_over.gotoAndPlay(1);
+				return completed;
+			}
+			
+			// stage clear
+			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
+			{
+				game.mc_over.gotoAndPlay(1);
+				game.mc_over.menuOver.gotext.gotoAndStop(2);
+				return completed;
+			}
+			
+			if (gamePaused)
+				return completed;
+			
 			if (gameActive)
 			{
 				player.step();
@@ -184,6 +250,17 @@
 			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
 			
 			return completed;			// return the state of the container (if true, it is done)
+		}
+		
+		protected function onRestart(e:MouseEvent):void
+		{
+			engine.returnCode = engine.RET_RESTART;
+			completed = true;
+		}
+		
+		protected function onQuit(e:MouseEvent):void
+		{
+			completed = true;
 		}
 
 		/**

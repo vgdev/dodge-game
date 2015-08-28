@@ -22,6 +22,11 @@ package vgdev.dodge.mechanics
 			timeline = _timeline;
 		}
 		
+		public function hasObstacles():Boolean
+		{
+			return obstacles.length == 0;
+		}
+		
 		/**
 		 * Updates all active obstacles
 		 */
@@ -36,7 +41,7 @@ package vgdev.dodge.mechanics
 			{
 				for (i = toSpawn.length - 1; i >= 0; i--)		// spawn the obstacles associated with this frame
 				{
-					cg.game.addChild(toSpawn[i].mc_object);
+					cg.game.container_telegraphs.addChild(toSpawn[i].mc_object);
 					obstacles.push(toSpawn[i]);
 					toSpawn[i].activate();
 				}
@@ -50,8 +55,8 @@ package vgdev.dodge.mechanics
 				obstacle = obstacles[i] as ABST_Obstacle;
 				if (obstacle.step())								// update this obstacle and check if it is completed
 				{
-					if (cg.game.contains(obstacle.mc_object))
-						cg.game.removeChild(obstacle.mc_object);
+					if (cg.game.container_telegraphs.contains(obstacle.mc_object))
+						cg.game.container_telegraphs.removeChild(obstacle.mc_object);
 					obstacles.splice(i, 1);
 					obstacle = null;
 				}

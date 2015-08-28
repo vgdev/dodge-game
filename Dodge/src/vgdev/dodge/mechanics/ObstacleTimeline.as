@@ -17,6 +17,8 @@ package vgdev.dodge.mechanics
 		/// Current frame
 		public var frameNow:Number = 0;
 		
+		public var highestFrame:int = 0;
+		
 		public function ObstacleTimeline() 
 		{
 			timeline = new Object();
@@ -34,6 +36,9 @@ package vgdev.dodge.mechanics
 				timeline[frame] = [];
 			timeline[frame].push(obstacle);
 			canActivate[frame] = true;
+			
+			if (frame > highestFrame)
+				highestFrame = frame;
 		}
 		
 		/**
@@ -51,6 +56,11 @@ package vgdev.dodge.mechanics
 				return timeline[int(frameNow)];
 			}
 			return null;
+		}
+		
+		public function gameComplete():Boolean
+		{
+			return frameNow >= highestFrame + 60;
 		}
 	}
 }

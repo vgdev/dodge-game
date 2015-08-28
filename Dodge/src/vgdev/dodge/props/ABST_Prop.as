@@ -8,7 +8,7 @@ package vgdev.dodge.props
 	 * An abstract class containing functionality useful to all game objects
 	 * @author 	Alexander Huynh
 	 */
-	class ABST_Prop 
+	public class ABST_Prop 
 	{
 		/// A reference to the active instance of ContainerGame
 		protected var cg:ContainerGame;
