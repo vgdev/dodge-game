@@ -34,9 +34,6 @@ package vgdev.dodge.props
 		
 		public var currentState:int = STATE_WAIT;
 		
-		/// The JSON/Object parameters that were passed into the constructor
-		private var params:Object;
-		
 		// helpers to use if obstacle is a bitmap instead of just a drawing shape
 		public var isBitmap:Boolean = false;
 		public var bitmapData:BitmapData;
@@ -90,8 +87,6 @@ package vgdev.dodge.props
 				mc_object.tele.addChild(img);
 			}
 			
-			cg.addChild(mc_object);
-			
 			// TODO read and set params from _params object
 			spawnTime = setParam("spawn", spawnTime);
 			activeTime = setParam("active", activeTime);
@@ -105,19 +100,6 @@ package vgdev.dodge.props
 			mc_object.scaleY = setParam("scaleY", mc_object.scaleY);
 			
 			mc_object.visible = false;
-		}
-		
-		/**
-		 * Helper used in the constructor to set parameters
-		 * @param	key			Key to use in _params
-		 * @param	fallback	Default value to use if value is null
-		 * @return				Value of the key if not null; otherwise fallback
-		 */
-		protected function setParam(key:String, fallback:*):*
-		{
-			if (params[key])
-				return params[key];
-			return fallback;
 		}
 		
 		/**

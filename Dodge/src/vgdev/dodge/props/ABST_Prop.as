@@ -21,6 +21,9 @@ package vgdev.dodge.props
 		
 		protected var dx:Number = 0;
 		protected var dy:Number = 0;
+		
+		/// The JSON/Object parameters that were passed into the constructor, if any
+		protected var params:Object = new Object();
 
 		/**
 		 * Should only be called through super(), never instantiated
@@ -29,6 +32,19 @@ package vgdev.dodge.props
 		public function ABST_Prop(_cg:ContainerGame) 
 		{
 			cg = _cg;
+		}
+
+		/**
+		 * Helper used in the constructor to set parameters
+		 * @param	key			Key to use in params
+		 * @param	fallback	Default value to use if value is null
+		 * @return				Value of the key if not null; otherwise fallback
+		 */
+		protected function setParam(key:String, fallback:*):*
+		{
+			if (params[key])
+				return params[key];
+			return fallback;
 		}
 		
 		/**

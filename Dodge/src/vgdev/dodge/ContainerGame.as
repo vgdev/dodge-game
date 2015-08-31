@@ -4,6 +4,7 @@
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.media.Sound;
+	import flash.media.SoundMixer;
 	import vgdev.dodge.mechanics.ObstacleManager;
 	import vgdev.dodge.mechanics.ObstacleTimeline;
 	import vgdev.dodge.props.ABST_Obstacle;
@@ -65,6 +66,7 @@
 			game.container_player.addChild(player.mc_object);
 			
 			// TODO change later
+			SoundMixer.stopAll();
 			var bgm:Sound = new bgm_main();
 			bgm.play();
 			
@@ -180,9 +182,13 @@
 			}
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
-			eng.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
 		}
 		
+		/**
+		 * Callback when a key is pressed; i.e. a key goes from NOT PRESSED to PRESSED
+		 * @param	e		the associated KeyboardEvent; use e.keyCode
+		 */
 		private function downKeyboard(e:KeyboardEvent):void
 		{			
 			switch (e.keyCode)
@@ -201,12 +207,21 @@
 			}
 		}
 		
+		/**
+		 * Plays the 'out' animation for the pause screen and readies the unpause helper
+		 * @param	e		not used
+		 */
 		private function unpauseHelper(e:MouseEvent):void
 		{
 			game.mc_paused.gotoAndPlay("out");
 			game.mc_paused.addEventListener(Event.ENTER_FRAME, unpause);
 		}
 		
+		/**
+		 * Callback used between the 'out' animation for the pause screen, and when it finishes animating
+		 * Unpauses the game and removes the callback
+		 * @param	e		not used
+		 */
 		private function unpause(e:Event):void
 		{
 			if (game.mc_paused.currentFrame == 1)
@@ -222,24 +237,26 @@
 		 */
 		override public function step():Boolean
 		{
-			// game over
+			if (gamePaused)
+				return completed;
+			// -- do the following only if the game is not paused
+			
+			// check if game over and needs to start the "Game Over" animation (once)
 			if (!player.alive && overCounter < 45 && ++overCounter == 45)
 			{
 				game.mc_over.gotoAndPlay(1);
 				return completed;
 			}
 			
-			// stage clear
+			//  check if stage cleared and needs to start the "Stage Clear" animation (once)
 			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
 			{
 				game.mc_over.gotoAndPlay(1);
 				game.mc_over.menuOver.gotext.gotoAndStop(2);
 				return completed;
 			}
-			
-			if (gamePaused)
-				return completed;
-			
+
+			// helper to continue stepping the obstacles but not the player if the player dies
 			if (gameActive)
 			{
 				player.step();
@@ -252,12 +269,24 @@
 			return completed;			// return the state of the container (if true, it is done)
 		}
 		
+		/**
+		 * Callback for the "Restart" button in the pause menu
+		 * Immediately restart the level
+		 * Pass in null to this function to call it from places other than a callback
+		 * @param	e		not used
+		 */
 		protected function onRestart(e:MouseEvent):void
 		{
 			engine.returnCode = engine.RET_RESTART;
 			completed = true;
 		}
 		
+		/**
+		 * Callback for the "Quit" button in the pause menu
+		 * Immediately quit the level and go to the next game state, defined in Engine
+		 * Pass in null to this function to call it from places other than a callback
+		 * @param	e		not used
+		 */
 		protected function onQuit(e:MouseEvent):void
 		{
 			completed = true;
@@ -269,6 +298,9 @@
 		 */
 		protected function destroy(e:Event):void
 		{			
+			if (engine.stage.hasEventListener(KeyboardEvent.KEY_DOWN))
+				engine.stage.removeEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+			
 			if (game && contains(game))
 				removeChild(game);
 			game = null;

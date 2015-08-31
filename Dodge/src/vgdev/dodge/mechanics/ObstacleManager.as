@@ -61,6 +61,7 @@ package vgdev.dodge.mechanics
 					obstacle = null;
 				}
 				// player hit detection
+				// TODO move to ABST_Obstacle and make not as ugly
 				else if (cg.gameActive && obstacle.currentState == obstacle.STATE_ACTIVE)
 				{
 					var ptObst:Point = new Point(obstacle.mc_object.x, obstacle.mc_object.y);
