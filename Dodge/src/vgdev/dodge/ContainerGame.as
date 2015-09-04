@@ -138,7 +138,7 @@
 			}
 			
 			// demo level 2
-			if (true)
+			if (false)
 			{
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-150, "scaleX":4, "scaleY":3}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":150, "scaleX":4, "scaleY":3}), ONE);
@@ -191,6 +191,16 @@
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+		}
+		
+		/**
+		 * Helper to be called from ObstacleLoader
+		 * @param	obst		the obstacle to add to the timeline
+		 * @param	time		the frame to add the obstacle on
+		 */
+		public function addObstacle(obst:ABST_Obstacle, time:int):void
+		{
+			obstacleTimeline.addObstacle(obst, time);
 		}
 		
 		/**

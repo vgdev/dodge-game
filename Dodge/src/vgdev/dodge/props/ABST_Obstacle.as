@@ -100,6 +100,8 @@ package vgdev.dodge.props
 			mc_object.scaleY = setParam("scaleY", mc_object.scaleY);
 			
 			mc_object.visible = false;
+			
+			trace("Obstacle added at " + mc_object.x + ", " + mc_object.y);
 		}
 		
 		/**

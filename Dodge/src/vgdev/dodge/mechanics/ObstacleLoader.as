@@ -1,6 +1,7 @@
 package vgdev.dodge.mechanics 
 {
 	import vgdev.dodge.ContainerGame;
+	import vgdev.dodge.props.ABST_Obstacle;
 	
 	/**
 	 * Helper to load a level's obstacles
@@ -37,11 +38,13 @@ package vgdev.dodge.mechanics
 			// set up anchors
 			if (json["anchors"])
 			{
-				for each (var testObj:Number in json["anchors"])
+				for (var anchName:String in json["anchors"])
 				{
 					try
 					{
-						trace(testObj);
+						trace("Trying to get anchor " + anchName);
+						anchors[anchName] = toFrame(json["anchors"][anchName]);
+						trace("Time anchor '" + anchName + "' added for frame " + anchors[anchName]);
 					} catch (e:Error)
 					{
 						trace("ERROR: When setting up level, invalid anchor.\n" + e.getStackTrace());
@@ -55,7 +58,27 @@ package vgdev.dodge.mechanics
 				trace("ERROR: When setting up level, JSON file is missing \"obstacles\"!");
 				return false;
 			}
+			else
+			{
+				for each (var obstacle:Object in json["obstacles"])
+				{
+					try
+					{
+						trace("Obstacle has time " + obstacle["time"]);
+						// TODO verify time exists
+						var time:int = anchors[obstacle["time"]];
+						if (obstacle["offset"])
+							time += toFrame(obstacle["offset"]);
+						cg.addObstacle(new ABST_Obstacle(cg, obstacle), time);
+					} catch (e:Error)
+					{
+						trace("ERROR: When setting up level, invalid anchor.\n" + e.getStackTrace());
+					}
+				}
+			}
 			
+			
+			trace("[OL] Load completed without errors.");
 			return true;
 		}
 		
