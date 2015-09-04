@@ -1,8 +1,10 @@
 ﻿package vgdev.dodge
 {
 	import flash.display.MovieClip;
+	import flash.display.SimpleButton;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.filters.GlowFilter;
 
 	/**
 	 * Main menu and level select screen
@@ -11,8 +13,13 @@
 	 */
 	public class ContainerMenu extends ABST_Container
 	{
-		public var eng:Engine;				// a reference to the Engine
-		public var swc:SWC_MainMenu;		// the actual MovieClip
+		public var eng:Engine;					// a reference to the Engine
+		public var swc:SWC_MainMenu;			// the actual MovieClip
+		
+		private var buttonGlow:GlowFilter;		// glow for the buttons
+		private var currAlpha:Number = 0;		// current alpha value for the button glow
+		private const MAX_ALPHA:Number = .4;	// max alpha value for the button glow
+		private var currBtn:SimpleButton;		// helper to reset glow
 		
 		/**
 		 * A MovieClip handling the main menu
@@ -23,12 +30,20 @@
 			super();
 			eng = _eng;
 			
-			// set up the MovieCllip
+			// set up button glow
+			buttonGlow = new GlowFilter(0x73FFF8, .75, 16, 16, 4);
+			
+			// set up the MovieClip
 			swc = new SWC_MainMenu();
 			addChild(swc);
 			
 			// set up the main menu
 			swc.btn_start.addEventListener(MouseEvent.CLICK, onStart);
+			
+			// set up arrow button follower
+			swc.btn_start.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
+			swc.btn_options.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
+			swc.btn_credits.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
 		}
 		
 		/**
@@ -38,6 +53,45 @@
 		private function onStart(e:MouseEvent):void
 		{
 			completed = true;
+		}
+		
+		/**
+		 * Called when the mouse hovers over a button.
+		 * Moves the marker to that button
+		 * @param	e		the captured MouseEvent, used to get the mouse target
+		 */
+		private function ovrBtn(e:MouseEvent):void
+		{
+			if (swc.mc_marker)
+			{
+				swc.mc_marker.y = e.target.y;
+				swc.mc_marker.filters = [];
+			}
+			if (currBtn)
+				currBtn.filters = [];
+			if (e.target != currBtn)
+				currAlpha = 0;
+			currBtn = e.target as SimpleButton;
+			addEventListener(Event.ENTER_FRAME, updateBtns);
+		}
+		
+		/**
+		 * Helper to fade in button glow alpha until it hits MAX_ALPHA
+		 * @param	e		the captured Event, unused
+		 */
+		private function updateBtns(e:Event):void
+		{
+			currAlpha += .02;
+			if (currAlpha >= MAX_ALPHA)
+			{
+				currAlpha = MAX_ALPHA;
+				removeEventListener(Event.ENTER_FRAME, step);
+			}
+			buttonGlow.alpha = currAlpha;
+			if (currBtn)
+				currBtn.filters = [buttonGlow];
+			if (swc.mc_marker)
+				swc.mc_marker.filters = [buttonGlow];
 		}
 
 		/**

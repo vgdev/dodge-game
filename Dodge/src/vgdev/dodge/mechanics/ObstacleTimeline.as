@@ -71,8 +71,13 @@ package vgdev.dodge.mechanics
 			return null;
 		}
 		
+		/**
+		 * Helper to determine if all obstacles have finished spawning
+		 * @return		true if no more obstacles are going to spawn
+		 */
 		public function gameComplete():Boolean
 		{
+			// TODO inspect and fix?
 			return frameNow >= highestFrame + 60;
 		}
 	}

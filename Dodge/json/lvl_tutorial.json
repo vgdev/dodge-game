@@ -4,7 +4,7 @@
 		"big-squares":6
 	},
 	"obstacles": [
-		{"shape": "rect", "x":100, "y":100, "scale":20, "time":"triple-square"},
+		{"shape": "rect", "x":100, "y":100, "scale":1, "time":"triple-square"},
 		{"shape": "rect", "x":-100, "y":100, "time":"triple-square", "offset":1},
 		{"shape": "rect", "x":100, "y":-100, "time":"triple-square", "offset":2},
 		

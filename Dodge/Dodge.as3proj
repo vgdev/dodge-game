@@ -71,6 +71,9 @@
   <!-- Assets to embed into the output SWF -->
   <library>
     <asset path="img\doge.png" />
+    <asset path="img\apple.png" />
+    <asset path="img\orange.png" />
+    <asset path="img\peach.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

@@ -41,6 +41,12 @@ package vgdev.dodge.props
 		// TODO remove temporary code
 		[Embed(source = "../../../../img/doge.png")]
 		public static var Bitmap_Doge:Class;
+		[Embed(source = "../../../../img/orange.png")]
+		public static var Bitmap_Orange:Class;
+		/*[Embed(source="../../../../img/peach.png")]
+		public static var Bitmap_Peach:Class;*/
+		[Embed(source = "../../../../img/apple.png")]
+		public static var Bitmap_Apple:Class;
 		
 		public function ABST_Obstacle(_cg:ContainerGame, _params:Object)
 		{
@@ -76,12 +82,21 @@ package vgdev.dodge.props
 				//trace("Adding: " + (new Bitmap_Doge()));
 				//_params["image"].x -= _params["image"].width * .5;		// center the image
 				//_params["image"].y -= _params["image"].height * .5;
-				var img:Bitmap = new Bitmap_Doge();
+				var imgClass:Class;
+				switch (_params["image"])
+				{
+					case "doge":		imgClass = Bitmap_Doge;		break;
+					case "apple":		imgClass = Bitmap_Apple;	break;
+					case "orange":		imgClass = Bitmap_Orange;	break;
+					//case "peach":		imgClass = Bitmap_Peach;	break;
+					default:			trace("ERROR in ABST_Obstacle: Image " + _params["image"] + " not found!");
+				}
+				var img:Bitmap = new imgClass();
 				bitmapData = img.bitmapData;
 				img.x -= img.width * .5;
 				img.y -= img.height * .5;
 				mc_object.addChild(img);
-				img = new Bitmap_Doge();
+				img = new imgClass();
 				img.x -= img.width * .5;
 				img.y -= img.height * .5;
 				mc_object.tele.addChild(img);
@@ -155,6 +170,7 @@ package vgdev.dodge.props
 					{
 						currentState = STATE_DEAD;
 						completed = true;
+						mc_object.visible = false;
 					}
 				break;
 			}
