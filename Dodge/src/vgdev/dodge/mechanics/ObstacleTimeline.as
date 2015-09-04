@@ -8,6 +8,8 @@ package vgdev.dodge.mechanics
 	 */
 	public class ObstacleTimeline 
 	{
+		// 30 frames == 1 second; starting frame is 0
+		
 		/// Map of frame number to Array of obstacles to be spawned on that frame
 		public var timeline:Object;
 		
@@ -15,14 +17,25 @@ package vgdev.dodge.mechanics
 		public var canActivate:Object;
 		
 		/// Current frame
-		public var frameNow:Number = 0;
+		public var frameNow:Number;
 		
-		public var highestFrame:int = 0;
+		/// Frame with the last obstacle(s), used to help determine when the stage has ended
+		public var highestFrame:int;
 		
 		public function ObstacleTimeline() 
 		{
+			reset();
+		}
+		
+		/**
+		 * Clears all saved obstacles and time information.
+		 */
+		public function reset():void
+		{
 			timeline = new Object();
 			canActivate = new Object();
+			frameNow = 0;
+			highestFrame = 0;
 		}
 		
 		/**

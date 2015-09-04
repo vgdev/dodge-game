@@ -5,6 +5,7 @@
 	import flash.ui.Keyboard;
 	import flash.media.Sound;
 	import flash.media.SoundMixer;
+	import vgdev.dodge.mechanics.ObstacleLoader;
 	import vgdev.dodge.mechanics.ObstacleManager;
 	import vgdev.dodge.mechanics.ObstacleTimeline;
 	import vgdev.dodge.props.ABST_Obstacle;
@@ -26,11 +27,13 @@
 		
 		public var obstacleTimeline:ObstacleTimeline;
 		public var obstacleManager:ObstacleManager;
+		public var obstacleLoader:ObstacleLoader;
 		
 		public var gameActive:Boolean = true;		// TODO change later
 		public var gamePaused:Boolean = false;
 		
 		private var overCounter:int = 0;
+		private var json:Object;					// level data
 		
 		// TODO move to SoundManager class
 		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
@@ -39,11 +42,13 @@
 		/**
 		 * A MovieClip containing all of a Dodge level
 		 * @param	eng			A reference to the Engine
+		 * @param	_json		Level data JSON object
 		 */
-		public function ContainerGame(eng:Engine)
+		public function ContainerGame(eng:Engine, _json:Object)
 		{
 			super();
 			engine = eng;
+			json = _json;
 			
 			// set up the game MovieClip
 			game = new SWC_Game();
@@ -72,6 +77,9 @@
 			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();
+			
+			obstacleLoader = new ObstacleLoader(this);
+			obstacleLoader.loadLevel(json);
 			
 			var ONE:int = 60;
 			var TWO:int = 180;

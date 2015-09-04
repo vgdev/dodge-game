@@ -28,6 +28,25 @@ package vgdev.dodge.mechanics
 		}
 		
 		/**
+		 * Kills all obstacles
+		 */
+		public function reset():void
+		{
+			if (obstacles.length == 0)
+				return;
+			var obstacle:ABST_Obstacle;
+			for (var i:int = obstacles.length - 1; i >= 0; i--)
+			{
+				obstacle = obstacles[i] as ABST_Obstacle;
+				if (cg.game.container_telegraphs.contains(obstacle.mc_object))
+					cg.game.container_telegraphs.removeChild(obstacle.mc_object);
+				obstacle.currentState = obstacle.STATE_DEAD;
+				obstacle = null;
+			}
+			obstacles = [];
+		}
+		
+		/**
 		 * Updates all active obstacles
 		 */
 		public function step():void

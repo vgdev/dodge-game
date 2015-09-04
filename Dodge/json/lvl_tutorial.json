@@ -1,0 +1,22 @@
+{
+	"anchors":{
+		"triple-square":1,
+		"big-squares":6
+	}
+	"obstacles": [
+		{"shape": "rect", "x":100, "y":100, "time":"triple-square"},
+		{"shape": "rect", "x":-100, "y":100, "time":"triple-square", "offset":1},
+		{"shape": "rect", "x":100, "y":-100, "time":"triple-square", "offset":2},
+		
+		{"shape": "rect", "x":200, "y":-200, "scale":2, "time":"big-squares"},
+		{"shape": "rect", "x":-200, "y":-200, "scale":4, "time":"big-squares", "offset":1},
+		{"shape": "rect", "x":0, "y":100, "scale":2, "time":"big-squares", "offset":2}		
+	],
+	"meta":{
+		"name-internal":"lvl_tutorial",
+		"name-external":"Tutorial"
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}

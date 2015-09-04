@@ -23,8 +23,12 @@ package vgdev.dodge
 		public const RET_RESTART:int = 1;
 		public var returnCode:int = RET_NORMAL;
 		
+		private var levels:Levels;
+		
 		public function Engine() 
 		{
+			levels = new Levels();
+			
 			addEventListener(Event.ENTER_FRAME, step);					// primary game loop firer
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
@@ -51,7 +55,7 @@ package vgdev.dodge
 				switch (gameState)			// determine which new container to go to next
 				{
 					case STATE_MENU:
-						switchToContainer(new ContainerGame(this), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
+						switchToContainer(new ContainerGame(this, levels.getLevel("lvl_tutorial")), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
 						gameState = STATE_GAME;
 					break;
 					case STATE_GAME:
@@ -62,7 +66,7 @@ package vgdev.dodge
 					}
 					else if (returnCode == RET_RESTART)
 					{
-						switchToContainer(new ContainerGame(this), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
+						switchToContainer(new ContainerGame(this, levels.getLevel("lvl_tutorial")), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
 						gameState = STATE_GAME;
 					}
 					break;
