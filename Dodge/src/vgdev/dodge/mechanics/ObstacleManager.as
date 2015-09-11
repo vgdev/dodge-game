@@ -24,7 +24,7 @@ package vgdev.dodge.mechanics
 		
 		public function hasObstacles():Boolean
 		{
-			return obstacles.length == 0;
+			return obstacles.length > 0;
 		}
 		
 		/**
@@ -78,6 +78,7 @@ package vgdev.dodge.mechanics
 						cg.game.container_telegraphs.removeChild(obstacle.mc_object);
 					obstacles.splice(i, 1);
 					obstacle = null;
+					trace("[OM] Removed an obstacle");
 				}
 			}
 			// end update active obstacles

@@ -262,6 +262,7 @@
 			// check if game over and needs to start the "Game Over" animation (once)
 			if (!player.alive && overCounter < 45 && ++overCounter == 45)
 			{
+				trace("[CG] Starting Game Over");
 				game.mc_over.gotoAndPlay(1);
 				return completed;
 			}
@@ -269,6 +270,8 @@
 			//  check if stage cleared and needs to start the "Stage Clear" animation (once)
 			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
 			{
+				trace(obstacleManager.hasObstacles());
+				trace("[CG] Starting Stage Clear");
 				game.mc_over.gotoAndPlay(1);
 				game.mc_over.menuOver.gotext.gotoAndStop(2);
 				return completed;

@@ -39,6 +39,8 @@
 			
 			// set up the main menu
 			swc.btn_start.addEventListener(MouseEvent.CLICK, onStart);
+			swc.btn_options.addEventListener(MouseEvent.CLICK, onOptions);
+			swc.btn_credits.addEventListener(MouseEvent.CLICK, onCredits);
 			
 			// set up arrow button follower
 			swc.btn_start.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
@@ -56,12 +58,34 @@
 		}
 		
 		/**
+		 * Called by the Options button in the main menu; shows the options
+		 * @param	e		the captured MouseEvent, unused
+		 */
+		private function onOptions(e:MouseEvent):void
+		{
+			swc.mc_options.gotoAndPlay("in");
+		}
+		
+		/**
+		 * Called by the Credits button in the main menu; shows the credits
+		 * @param	e		the captured MouseEvent, unused
+		 */
+		private function onCredits(e:MouseEvent):void
+		{
+			swc.mc_credits.gotoAndPlay("in");
+		}
+		
+		/**
 		 * Called when the mouse hovers over a button.
 		 * Moves the marker to that button
 		 * @param	e		the captured MouseEvent, used to get the mouse target
 		 */
 		private function ovrBtn(e:MouseEvent):void
 		{
+			// prevent mouse over transformation from breaking the tween
+			if (swc.currentFrame != swc.totalFrames)
+				return;
+			// update the > marker position
 			if (swc.mc_marker)
 			{
 				swc.mc_marker.y = e.target.y;

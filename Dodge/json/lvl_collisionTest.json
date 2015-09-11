@@ -1,0 +1,15 @@
+{
+	"anchors":{
+		"apple":1
+	},
+	"obstacles": [
+		{"image": "apple", "x":0, "y":0, "scale":0.3, "active":9999, "time":"apple"}
+	],
+	"meta":{
+		"name-internal":"lvl_collisionTest",
+		"name-external":"Test",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}

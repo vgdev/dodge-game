@@ -77,8 +77,7 @@ package vgdev.dodge.mechanics
 		 */
 		public function gameComplete():Boolean
 		{
-			// TODO inspect and fix?
-			return frameNow >= highestFrame + 60;
+			return frameNow >= highestFrame + 30;
 		}
 	}
 }

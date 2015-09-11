@@ -40,7 +40,7 @@ package vgdev.dodge.props
 		public var isBitmap:Boolean = false;
 		public var bitmapData:BitmapData;
 		
-		// TODO remove temporary code
+		// bitmap embedding
 		[Embed(source = "../../../../img/doge.png")]
 		public static var Bitmap_Doge:Class;
 		[Embed(source = "../../../../img/orange.png")]
@@ -81,9 +81,6 @@ package vgdev.dodge.props
 			else
 			{
 				isBitmap = true;
-				//trace("Adding: " + (new Bitmap_Doge()));
-				//_params["image"].x -= _params["image"].width * .5;		// center the image
-				//_params["image"].y -= _params["image"].height * .5;
 				var imgClass:Class;
 				switch (_params["image"])
 				{
@@ -95,16 +92,16 @@ package vgdev.dodge.props
 				}
 				var img:Bitmap = new imgClass();
 				bitmapData = img.bitmapData;
-				img.x -= img.width * .5;
-				img.y -= img.height * .5;
+				//img.x -= img.width * .5;
+				//img.y -= img.height * .5;
 				mc_object.addChild(img);
 				img = new imgClass();
-				img.x -= img.width * .5;
-				img.y -= img.height * .5;
+				//img.x -= img.width * .5;
+				//img.y -= img.height * .5;
 				mc_object.tele.addChild(img);
 			}
 			
-			// TODO read and set params from _params object
+			// read and set params from _params object
 			spawnTime = setParam("spawn", spawnTime);
 			activeTime = setParam("active", activeTime);
 			mc_object.x = setParam("x", 0);
@@ -118,7 +115,7 @@ package vgdev.dodge.props
 			
 			mc_object.visible = false;
 			
-			trace("Obstacle added at " + mc_object.x + ", " + mc_object.y);
+			//trace("Obstacle added at " + mc_object.x + ", " + mc_object.y);
 		}
 		
 		/**
@@ -192,11 +189,14 @@ package vgdev.dodge.props
 			var ptPlayer:Point = (new Point(cg.player.mc_object.x + 400, cg.player.mc_object.y + 300));
 			if (mc_object.hitTestObject(cg.player.mc_object))
 			{
+				// TODO fix me please
 				if ((!isBitmap && mc_object.hitTestPoint(ptPlayer.x, ptPlayer.y, true)) ||
 					 HitTester.realHitTest(mc_object, ptPlayer))
 				{
 					cg.player.kill();
+					trace("DEAD");
 				}
+				else trace("ok");
 			}
 		}
 		

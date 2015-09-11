@@ -10,6 +10,8 @@ package vgdev.dodge
 		public var lvl_tutorial:Class;
 		[Embed(source="../../../json/lvl_test.json", mimeType="application/octet-stream")]
 		public var lvl_test:Class;
+		[Embed(source="../../../json/lvl_collisionTest.json", mimeType="application/octet-stream")]
+		public var lvl_collisionTest:Class;
 		
 		private var levels:Object;
 		
@@ -19,6 +21,7 @@ package vgdev.dodge
 			
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
 			levels["lvl_test"] = JSON.parse(new lvl_test());
+			levels["lvl_collisionTest"] = JSON.parse(new lvl_collisionTest());
 		}
 		
 		public function getLevel(lvl:String):Object
