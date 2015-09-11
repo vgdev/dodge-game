@@ -3,8 +3,10 @@ package vgdev.dodge.props
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
+	import flash.geom.Point;
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.mechanics.TimeScale;
+	import vgdev.dodge.mechanics.HitTester;
 	
 	/**
 	 * Abstract class
@@ -163,6 +165,10 @@ package vgdev.dodge.props
 						currentState = STATE_DESPAWN;
 						currentTime = 0;
 					}
+					else
+					{
+						checkCollision();
+					}
 				break;
 				case STATE_DESPAWN:
 					mc_object.alpha = 1 - (currentTime / despawnTime);
@@ -176,6 +182,22 @@ package vgdev.dodge.props
 			}
 			
 			return completed;
+		}
+		
+		/**
+		 * Check for collision with the Player
+		 */
+		protected function checkCollision():void
+		{
+			var ptPlayer:Point = (new Point(cg.player.mc_object.x + 400, cg.player.mc_object.y + 300));
+			if (mc_object.hitTestObject(cg.player.mc_object))
+			{
+				if ((!isBitmap && mc_object.hitTestPoint(ptPlayer.x, ptPlayer.y, true)) ||
+					 HitTester.realHitTest(mc_object, ptPlayer))
+				{
+					cg.player.kill();
+				}
+			}
 		}
 		
 		/**

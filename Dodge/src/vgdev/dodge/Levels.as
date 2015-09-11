@@ -17,13 +17,13 @@ package vgdev.dodge
 		{
 			levels = new Object();
 			
-			//levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
-			levels["lvl_tutorial"] = JSON.parse(new lvl_test());
+			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
+			levels["lvl_test"] = JSON.parse(new lvl_test());
 		}
 		
 		public function getLevel(lvl:String):Object
 		{
-			//trace("Returning: " + levels[lvl]);
+			trace("Returning: " + levels[lvl]);
 			return levels[lvl];
 		}
 	}

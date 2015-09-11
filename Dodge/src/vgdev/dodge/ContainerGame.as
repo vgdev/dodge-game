@@ -72,8 +72,8 @@
 			
 			// TODO change later
 			SoundMixer.stopAll();
-			var bgm:Sound = new bgm_main();
-			bgm.play();
+			//var bgm:Sound = new bgm_main();
+			//bgm.play();
 			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();

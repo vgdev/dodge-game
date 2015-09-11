@@ -79,20 +79,6 @@ package vgdev.dodge.mechanics
 					obstacles.splice(i, 1);
 					obstacle = null;
 				}
-				// player hit detection
-				// TODO move to ABST_Obstacle and make not as ugly
-				else if (cg.gameActive && obstacle.currentState == obstacle.STATE_ACTIVE)
-				{
-					var ptObst:Point = new Point(obstacle.mc_object.x, obstacle.mc_object.y);
-					if (obstacle.mc_object.hitTestObject(cg.player.mc_object))
-					{
-						if ((!obstacle.isBitmap && obstacle.mc_object.hitTestPoint(ptPlayer.x, ptPlayer.y, true)) ||
-							 HitTester.realHitTest(obstacle.mc_object, ptPlayer))
-						{
-							cg.player.kill();
-						}
-					}
-				}
 			}
 			// end update active obstacles
 		}

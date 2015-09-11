@@ -33,7 +33,7 @@ package vgdev.dodge.mechanics
 			if (cg.obstacleTimeline)
 				cg.obstacleTimeline.reset();
 			
-			//trace("[OL] Loading JSON: " + json);
+			trace("[OL] Loading JSON: " + json);
 				
 			// set up anchors
 			if (json["anchors"])
