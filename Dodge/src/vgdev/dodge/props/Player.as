@@ -34,6 +34,11 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
+		private var timePoints:int;
+		private var timePointsMax:int;
+		
+		private var score:int;
+		
 		public function Player(_cg:ContainerGame)
 		{
 			super(_cg);
@@ -67,9 +72,15 @@ package vgdev.dodge.props
 			
 			// handle time scale based on if the time scale key is down or not
 			if (keysDown[TIME])
+			{
 				TimeScale.slowDown();
+				changeTimePoints( -1);
+			}
 			else
+			{
 				TimeScale.speedUp();
+				changeTimePoints(1);
+			}
 			
 			return completed;
 		}
@@ -212,6 +223,19 @@ package vgdev.dodge.props
 		}
 		
 		/**
+		 * Changes timePoints by the given amount
+		 * @param	tp		amount to change timePoints by
+		 */
+		public function changeTimePoints(tp:int):void
+		{
+			timePoints += tp;
+			if (timePoints < 0)
+				timePoints = 0;
+			else if (timePoints > timePointsMax)
+				timePoints = timePointsMax;
+		}
+		
+		/**
 		 * Kill the player
 		 * Only works if the player is alive
 		 */
@@ -234,5 +258,24 @@ package vgdev.dodge.props
 		{
 			return new Point(dx, dy);
 		}
+		
+		/**
+		 * Get the player's score
+		 * @return		An int representing the score value
+		 */
+		public function getScore():int
+		{
+			return score;
+		}
+		
+		/**
+		 * Sets the score to the given value
+		 * @param	s		value to set the score to
+		 */
+		public function setScore(s:int):void
+		{
+			score = s;
+		}
+		
 	}
 }
