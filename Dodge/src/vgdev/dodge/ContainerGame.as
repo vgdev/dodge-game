@@ -222,6 +222,9 @@
 						game.mc_paused.gotoAndPlay("in");
 						gamePaused = true;
 					}
+				case Keyboard.R:
+					// reset level
+					onRestart(new MouseEvent(MouseEvent.CLICK));
 				break;
 			}
 		}
