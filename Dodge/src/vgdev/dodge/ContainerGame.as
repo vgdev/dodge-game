@@ -222,10 +222,11 @@
 						game.mc_paused.gotoAndPlay("in");
 						gamePaused = true;
 					}
+					break;
 				case Keyboard.R:
 					// reset level
 					onRestart(new MouseEvent(MouseEvent.CLICK));
-				break;
+					break;
 			}
 		}
 		
