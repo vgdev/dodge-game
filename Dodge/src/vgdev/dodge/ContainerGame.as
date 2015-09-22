@@ -191,6 +191,7 @@
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+			engine.stage.focus = engine.stage;
 		}
 		
 		/**
