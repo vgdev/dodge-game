@@ -34,10 +34,10 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
-		private var timePoints:int;
-		private var timePointsMax:int;
+		private var timePointsMax:int = 60;
+		private var timePoints:int = 60;
 		
-		private var score:int;
+		private var score:int = 0;
 		
 		public function Player(_cg:ContainerGame)
 		{
@@ -73,7 +73,10 @@ package vgdev.dodge.props
 			// handle time scale based on if the time scale key is down or not
 			if (keysDown[TIME])
 			{
-				TimeScale.slowDown();
+				if (timePoints > 0)
+					TimeScale.slowDown();
+				else
+					TimeScale.speedUp();
 				changeTimePoints( -1);
 			}
 			else
