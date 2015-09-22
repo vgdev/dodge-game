@@ -37,7 +37,9 @@ package vgdev.dodge.props
 		private var timePointsMax:int = 60;
 		private var timePoints:int = 60;
 		
-		private var score:int = 0;
+		private var actualScore:int = 0;
+		private var displayedScore:int = 0;
+		private const CHANGE_SCORE:int = 5;
 		
 		public function Player(_cg:ContainerGame)
 		{
@@ -95,6 +97,8 @@ package vgdev.dodge.props
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+			
+			trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
 		}
 		
 		/**
@@ -120,6 +124,17 @@ package vgdev.dodge.props
 				if (Math.abs(dy) < speedLimitY * haltThreshold)
 					dy = 0;
 			}
+		}
+		
+		/**
+		 * Changes the displayed score to more accurately reflect the player's current score
+		 */
+		private function updateScore():void
+		{
+			if (actualScore > displayedScore)
+				displayedScore += Math.min(actualScore - displayedScore, CHANGE_SCORE);
+			else if (actualScore < displayedScore)
+				displayedScore -= Math.min(actualScore - displayedScore, CHANGE_SCORE);
 		}
 		
 		/**
@@ -263,21 +278,21 @@ package vgdev.dodge.props
 		}
 		
 		/**
-		 * Get the player's score
-		 * @return		An int representing the score value
+		 * Get the player's score to be displayer
+		 * @return		An int representing the score value to be displayed
 		 */
 		public function getScore():int
 		{
-			return score;
+			return displayedScore;
 		}
 		
 		/**
-		 * Sets the score to the given value
-		 * @param	s		value to set the score to
+		 * Changes the actualScore variable by a given integer
+		 * @param	s		value to change actualScore by
 		 */
-		public function setScore(s:int):void
+		public function addScore(s:int):void
 		{
-			score = s;
+			actualScore += s;
 		}
 		
 	}
