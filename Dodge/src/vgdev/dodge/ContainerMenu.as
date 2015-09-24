@@ -46,15 +46,24 @@
 			swc.btn_start.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
 			swc.btn_options.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
 			swc.btn_credits.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
+			
+			// set up levels
+			// TODO remove temporary hard-coded stuff
+			swc.mc_levels.base.level_00.tf_title.text = "Test";
+			swc.mc_levels.base.level_00.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
+			swc.mc_levels.base.level_01.tf_title.text = "Tester";
+			swc.mc_levels.base.level_01.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
+			swc.mc_levels.base.level_02.tf_title.text = "Testest";
+			swc.mc_levels.base.level_02.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
 		}
 		
 		/**
-		 * Called by the Start button in the main menu; starts the demo game
+		 * Called by the Start button in the main menu; shows the levels
 		 * @param	e		the captured MouseEvent, unused
 		 */
 		private function onStart(e:MouseEvent):void
 		{
-			completed = true;
+			swc.mc_levels.gotoAndPlay("in");
 		}
 		
 		/**
@@ -73,6 +82,29 @@
 		private function onCredits(e:MouseEvent):void
 		{
 			swc.mc_credits.gotoAndPlay("in");
+		}
+		
+		/**
+		 * Called by a level folder button; starts the game with the given level
+		 * @param	e		the captured MouseEvent, used to determine which button was pressed
+		 */
+		private function onLevel(e:MouseEvent):void
+		{
+			// TODO remove temporary hard-coded stuff
+			trace(e.target.parent.name);
+			switch(e.target.parent.name)
+			{
+				case "level_00":
+					eng.currLevel = "lvl_tutorial";
+				break;
+				case "level_01":
+					eng.currLevel = "lvl_collisionTest";
+				break;
+				case "level_02":
+					eng.currLevel = "lvl_test";
+				break;
+			}
+			completed = true;
 		}
 		
 		/**

@@ -24,6 +24,7 @@ package vgdev.dodge
 		public var returnCode:int = RET_NORMAL;
 		
 		private var levels:Levels;
+		public var currLevel:String;				// set by ContainerMenu; determines which level to load
 		
 		public function Engine() 
 		{
@@ -55,7 +56,7 @@ package vgdev.dodge
 				switch (gameState)			// determine which new container to go to next
 				{
 					case STATE_MENU:
-						switchToContainer(new ContainerGame(this, levels.getLevel("lvl_collisionTest")), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
+						switchToContainer(new ContainerGame(this, levels.getLevel(currLevel)), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
 						gameState = STATE_GAME;
 					break;
 					case STATE_GAME:
@@ -66,7 +67,7 @@ package vgdev.dodge
 					}
 					else if (returnCode == RET_RESTART)
 					{
-						switchToContainer(new ContainerGame(this, levels.getLevel("lvl_collisionTest")), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
+						switchToContainer(new ContainerGame(this, levels.getLevel(currLevel)), STAGE_WIDTH * .5, STAGE_HEIGHT * .5);
 						gameState = STATE_GAME;
 					}
 					break;

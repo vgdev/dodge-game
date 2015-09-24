@@ -26,7 +26,7 @@ package vgdev.dodge
 		
 		public function getLevel(lvl:String):Object
 		{
-			trace("Returning: " + levels[lvl]);
+			trace("Returning: " + lvl);
 			return levels[lvl];
 		}
 	}

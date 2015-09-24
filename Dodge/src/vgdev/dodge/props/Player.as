@@ -36,6 +36,7 @@ package vgdev.dodge.props
 		
 		private var timePointsMax:int = 60;
 		private var timePoints:int = 60;
+		private const TP_CHANGE:int = 1;			// set to 0 for debugging - infinite TP
 		
 		private var actualScore:int = 0;
 		private var displayedScore:int = 0;
@@ -66,28 +67,36 @@ package vgdev.dodge.props
 		 */
 		override public function step():Boolean
 		{
-			if (!alive)
-				return completed;
+			if (alive)
+			{
+				updateVelocity();
+				updatePosition();
+			}
 			
-			updateVelocity();
-			updatePosition();
-			
-			// handle time scale based on if the time scale key is down or not
-			if (keysDown[TIME])
+			updateTime();
+			updateScore();
+
+			return completed;
+		}
+		
+		/**
+		 * Handle time scale based on if the time scale key is down or not
+		 */
+		private function updateTime():void
+		{
+			if (alive && keysDown[TIME])
 			{
 				if (timePoints > 0)
 					TimeScale.slowDown();
 				else
 					TimeScale.speedUp();
-				changeTimePoints( -1);
+				changeTimePoints( -TP_CHANGE);
 			}
 			else
 			{
 				TimeScale.speedUp();
-				changeTimePoints(1);
+				changeTimePoints(TP_CHANGE);
 			}
-			
-			return completed;
 		}
 		
 		/**
@@ -98,7 +107,7 @@ package vgdev.dodge.props
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
 			
-			trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
+			//trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
 		}
 		
 		/**
@@ -278,7 +287,7 @@ package vgdev.dodge.props
 		}
 		
 		/**
-		 * Get the player's score to be displayer
+		 * Get the player's score to be displayed
 		 * @return		An int representing the score value to be displayed
 		 */
 		public function getScore():int
