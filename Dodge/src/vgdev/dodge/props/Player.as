@@ -34,6 +34,13 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
+		private var timePointsMax:int = 60;
+		private var timePoints:int = 60;
+		
+		private var actualScore:int = 0;
+		private var displayedScore:int = 0;
+		private const CHANGE_SCORE:int = 5;
+		
 		public function Player(_cg:ContainerGame)
 		{
 			super(_cg);
@@ -67,9 +74,18 @@ package vgdev.dodge.props
 			
 			// handle time scale based on if the time scale key is down or not
 			if (keysDown[TIME])
-				TimeScale.slowDown();
+			{
+				if (timePoints > 0)
+					TimeScale.slowDown();
+				else
+					TimeScale.speedUp();
+				changeTimePoints( -1);
+			}
 			else
+			{
 				TimeScale.speedUp();
+				changeTimePoints(1);
+			}
 			
 			return completed;
 		}
@@ -81,6 +97,8 @@ package vgdev.dodge.props
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+			
+			trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
 		}
 		
 		/**
@@ -106,6 +124,17 @@ package vgdev.dodge.props
 				if (Math.abs(dy) < speedLimitY * haltThreshold)
 					dy = 0;
 			}
+		}
+		
+		/**
+		 * Changes the displayed score to more accurately reflect the player's current score
+		 */
+		private function updateScore():void
+		{
+			if (actualScore > displayedScore)
+				displayedScore += Math.min(actualScore - displayedScore, CHANGE_SCORE);
+			else if (actualScore < displayedScore)
+				displayedScore -= Math.min(actualScore - displayedScore, CHANGE_SCORE);
 		}
 		
 		/**
@@ -212,6 +241,19 @@ package vgdev.dodge.props
 		}
 		
 		/**
+		 * Changes timePoints by the given amount
+		 * @param	tp		amount to change timePoints by
+		 */
+		public function changeTimePoints(tp:int):void
+		{
+			timePoints += tp;
+			if (timePoints < 0)
+				timePoints = 0;
+			else if (timePoints > timePointsMax)
+				timePoints = timePointsMax;
+		}
+		
+		/**
 		 * Kill the player
 		 * Only works if the player is alive
 		 */
@@ -234,5 +276,24 @@ package vgdev.dodge.props
 		{
 			return new Point(dx, dy);
 		}
+		
+		/**
+		 * Get the player's score to be displayer
+		 * @return		An int representing the score value to be displayed
+		 */
+		public function getScore():int
+		{
+			return displayedScore;
+		}
+		
+		/**
+		 * Changes the actualScore variable by a given integer
+		 * @param	s		value to change actualScore by
+		 */
+		public function addScore(s:int):void
+		{
+			actualScore += s;
+		}
+		
 	}
 }

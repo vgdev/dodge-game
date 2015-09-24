@@ -33,16 +33,14 @@ package vgdev.dodge.mechanics
                      * really find out of we have a hit or not.
                      */
                     var bmapData:BitmapData = new BitmapData(object.width, object.height, true, 0x00000000);
-                    bmapData.draw(object, new Matrix());
 					
 					var coordTransform:Matrix = new Matrix();
-
 					coordTransform.rotate(object.rotation);
 					coordTransform.translate(object.x, object.y);
 					coordTransform.scale(object.scaleX, object.scaleY);
-
-					point = coordTransform.transformPoint(point);
-                    var returnVal:Boolean = bmapData.hitTest(new Point(0, 0), 255, object.globalToLocal(point));
+                    bmapData.draw(object, coordTransform);
+					
+                    var returnVal:Boolean = bmapData.hitTest(new Point(0, 0), 255, new Point(point.x - 400 - object.x, point.y - 300 - object.y));
                     
                     bmapData.dispose();
                     

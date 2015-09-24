@@ -191,6 +191,7 @@
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+			engine.stage.focus = engine.stage;
 		}
 		
 		/**
@@ -221,7 +222,12 @@
 						game.mc_paused.gotoAndPlay("in");
 						gamePaused = true;
 					}
-				break;
+					break;
+				case Keyboard.R:
+					// reset level
+					if (!obstacleTimeline.gameComplete())
+						onRestart(new MouseEvent(MouseEvent.CLICK));
+					break;
 			}
 		}
 		
