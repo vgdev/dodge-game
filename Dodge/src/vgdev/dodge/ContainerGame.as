@@ -192,6 +192,12 @@
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
 			engine.stage.focus = engine.stage;
+			
+			// tutorial
+			if (eng.currLevel == "lvl_tutorial_01")
+				game.mc_tutorial.gotoAndPlay("move");
+			else if (eng.currLevel == "lvl_tutorial_02")
+				game.mc_tutorial.gotoAndPlay("slow");
 		}
 		
 		/**

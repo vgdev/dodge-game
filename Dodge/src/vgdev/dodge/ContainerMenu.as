@@ -95,10 +95,10 @@
 			switch(e.target.parent.name)
 			{
 				case "level_00":
-					eng.currLevel = "lvl_tutorial";
+					eng.currLevel = "lvl_tutorial_01";
 				break;
 				case "level_01":
-					eng.currLevel = "lvl_collisionTest";
+					eng.currLevel = "lvl_tutorial_02";
 				break;
 				case "level_02":
 					eng.currLevel = "lvl_test";

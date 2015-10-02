@@ -6,6 +6,11 @@ package vgdev.dodge
 	 */
 	public class Levels 
 	{
+		[Embed(source = "../../../json/lvl_tutorial_01.json", mimeType = "application/octet-stream")]
+		public var lvl_tutorial_01:Class;
+		[Embed(source = "../../../json/lvl_tutorial_02.json", mimeType = "application/octet-stream")]
+		public var lvl_tutorial_02:Class;
+		
 		[Embed(source = "../../../json/lvl_tutorial.json", mimeType = "application/octet-stream")]
 		public var lvl_tutorial:Class;
 		[Embed(source="../../../json/lvl_test.json", mimeType="application/octet-stream")]
@@ -18,6 +23,9 @@ package vgdev.dodge
 		public function Levels() 
 		{
 			levels = new Object();
+			
+			levels["lvl_tutorial_01"] = JSON.parse(new lvl_tutorial_01());
+			levels["lvl_tutorial_02"] = JSON.parse(new lvl_tutorial_02());
 			
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
 			levels["lvl_test"] = JSON.parse(new lvl_test());
