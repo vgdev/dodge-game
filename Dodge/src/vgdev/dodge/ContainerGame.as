@@ -2,6 +2,7 @@
 {
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.media.Sound;
 	import flash.media.SoundMixer;
@@ -22,6 +23,7 @@
 	{		
 		public var engine:Engine;		// the game's Engine
 		public var game:SWC_Game;		// the Game SWC, containing all the base assets
+		private var anchor:Point;		// the starting coordinates of the game SWC
 		
 		public var player:Player;
 		
@@ -53,6 +55,7 @@
 			// set up the game MovieClip
 			game = new SWC_Game();
 			addChild(game);
+			anchor = new Point(game.x, game.y);
 			
 			game.mc_paused.visible = false;
 			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.CLICK, unpauseHelper);
@@ -274,7 +277,7 @@
 			// check if game over and needs to start the "Game Over" animation (once)
 			if (!player.alive && overCounter < 45 && ++overCounter == 45)
 			{
-				trace("[CG] Starting Game Over");
+				//trace("[CG] Starting Game Over");
 				game.mc_over.gotoAndPlay(1);
 				return completed;
 			}
@@ -283,7 +286,7 @@
 			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
 			{
 				trace(obstacleManager.hasObstacles());
-				trace("[CG] Starting Stage Clear");
+				//trace("[CG] Starting Stage Clear");
 				game.mc_over.gotoAndPlay(1);
 				game.mc_over.menuOver.gotext.gotoAndStop(2);
 				return completed;
@@ -296,8 +299,10 @@
 			}
 			obstacleManager.step();
 			
-			// TODO make better, shrink the game if time is slowed
-			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
+			// zoom and pan the game on the player if time is slowed
+			game.scaleX = game.scaleY = 1 + (1 - TimeScale.s_scale) * .2;
+			game.x = anchor.x - (1 - TimeScale.s_scale) * player.mc_object.x * .4;
+			game.y = anchor.y - (1 - TimeScale.s_scale) * player.mc_object.y * .4;
 			
 			return completed;			// return the state of the container (if true, it is done)
 		}

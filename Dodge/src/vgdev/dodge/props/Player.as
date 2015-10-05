@@ -193,6 +193,9 @@ package vgdev.dodge.props
 						mc_object.rotation = 0;
 				break;
 			}
+			
+			// keep TP indicator rotation rightside up
+			mc_object.tp_indicator.rotation = -mc_object.rotation;
 		}
 		
 		/**
@@ -260,6 +263,21 @@ package vgdev.dodge.props
 				timePoints = 0;
 			else if (timePoints > timePointsMax)
 				timePoints = timePointsMax;
+			
+			// update TP indicator
+			var percent:Number = timePoints / timePointsMax;
+			if (percent >= .5)
+			{
+				mc_object.tp_indicator.base.maskL.rotation = 360 * percent;
+				mc_object.tp_indicator.base.maskR.rotation = 180;
+			}
+			else
+			{
+				mc_object.tp_indicator.base.maskL.rotation = 180;
+				mc_object.tp_indicator.base.maskR.rotation = 360 * percent;
+			}
+			if (percent < 1)
+				mc_object.tp_indicator.gotoAndPlay("visible");
 		}
 		
 		/**
