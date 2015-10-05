@@ -108,6 +108,7 @@ package vgdev.dodge.props
 			mc_object.y = setParam("y", 0);
 			dx = setParam("dx", 0);
 			dy = setParam("dy", 0);
+			dr = setParam("dr", 0);
 			mc_object.rotation = setParam("rot", 0);
 			mc_object.scaleX = mc_object.scaleY = setParam("scale", 1);
 			mc_object.scaleX = setParam("scaleX", mc_object.scaleX);
@@ -207,6 +208,7 @@ package vgdev.dodge.props
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx);
 			mc_object.y = changeWithLimit(mc_object.y, dy);
+			mc_object.rotation = changeWithLimit(mc_object.rotation, dr);
 		}
 	}
 }

@@ -22,6 +22,10 @@ package vgdev.dodge.props
 		protected var dx:Number = 0;
 		protected var dy:Number = 0;
 		
+		///Rotation
+		protected var dr:Number = 0;
+		
+		
 		/// The JSON/Object parameters that were passed into the constructor, if any
 		protected var params:Object = new Object();
 
