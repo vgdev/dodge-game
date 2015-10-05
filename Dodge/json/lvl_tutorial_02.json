@@ -1,0 +1,47 @@
+{
+	"anchors":{
+		"first":4,
+		"second":16,
+		"third":27,
+		"box":31
+	},
+	"obstacles": [
+		{"shape": "circle", "x":-550, "y":-300, "dx":5, "dy":4, "scale":3, "spawn":30, "active":120, "time":"first"},
+		{"shape": "circle", "x": 550, "y": 300, "dx":-5, "dy":-4, "scale":3, "spawn":30, "active":120, "time":"first"},
+	
+		{"shape": "rect", "x": 0, "y": -400, "dy": 1.5, "scaleX":8, "spawn":40, "active":110, "time":"first", "offset":5},
+		{"shape": "rect", "x": 0, "y": -200, "dy": 1.5, "scaleX":8, "spawn":40, "active":110, "time":"first", "offset":5},
+		{"shape": "rect", "x": 0, "y":    0, "dy": 1.5, "scaleX":8, "spawn":40, "active":110, "time":"first", "offset":5},
+		
+		{"shape": "rect", "x": -200, "x": -300, "dx": 2, "scaleY":6, "spawn":90, "active":90, "time":"second"},
+		{"shape": "rect", "x":  200, "x":  300, "dx": -2, "scaleY":6, "spawn":90, "active":90, "time":"second"},
+		
+		{"shape": "circle", "x":-300, "y":-300, "dy": 4.5, "scale":2, "active":120, "time":"second", "offset":8},
+		{"shape": "circle", "x": 100, "y":-300, "dy": 4.5, "scale":2, "active":120, "time":"second", "offset":8},
+		{"shape": "circle", "x":-100, "y": 300, "dy":-4.5, "scale":2, "active":120, "time":"second", "offset":8},
+		{"shape": "circle", "x": 300, "y": 300, "dy":-4.5, "scale":2, "active":120, "time":"second", "offset":8},
+		
+		{"shape": "rect", "x":-400, "y": -50, "dx": 5, "scale":2, "active":120, "time":"third"},
+		{"shape": "rect", "x": 400, "y":  50, "dx":-5, "scale":2, "active":120, "time":"third"},
+		{"shape": "rect", "x":-150, "y":-300, "dy": 4, "scale":2, "active":120, "time":"third"},
+		{"shape": "rect", "x": 150, "y": 300, "dy":-4, "scale":2, "active":120, "time":"third"},
+		
+		{"shape": "rect", "x":   0, "y": -200, "scaleX":8, "scaleY":2,"spawn":60, "active":300, "time":"box"},
+		{"shape": "rect", "x":   0, "y":  200, "scaleX":8, "scaleY":2,"spawn":60, "active":300, "time":"box"},
+		{"shape": "rect", "x":-250, "y":   0, "scaleX":3, "scaleY":2, "spawn":60, "active":300, "time":"box"},
+		{"shape": "rect", "x": 250, "y":   0, "scaleX":3, "scaleY":2, "spawn":60, "active":300, "time":"box"},
+		
+		{"shape": "circle", "x":-400, "y": 100, "dx":6, "active":120, "time":"box", "offset":4},
+		{"shape": "circle", "x": 400, "y":-100, "dx":-6, "active":120, "time":"box", "offset":5},
+		{"shape": "circle", "x":  80, "y": 280, "dy":-5, "active":90, "time":"box", "offset":7},
+		{"shape": "circle", "x": -80, "y":-280, "dy": 5, "active":90, "time":"box", "offset":7},
+		{"shape": "circle", "x":   0, "y":-300, "dy": 4, "scale":1.25, "active":90, "time":"box", "offset":9}
+	],
+	"meta":{
+		"name-internal":"lvl_tutorial_02",
+		"name-external":"Tutorial 2",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}
