@@ -2,6 +2,7 @@
 {
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.media.Sound;
 	import flash.media.SoundMixer;
@@ -22,6 +23,7 @@
 	{		
 		public var engine:Engine;		// the game's Engine
 		public var game:SWC_Game;		// the Game SWC, containing all the base assets
+		private var anchor:Point;		// the starting coordinates of the game SWC
 		
 		public var player:Player;
 		
@@ -34,10 +36,6 @@
 		
 		private var overCounter:int = 0;
 		private var json:Object;					// level data
-		
-		// TODO move to SoundManager class
-		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
-		private var bgm_main:Class;
 
 		/**
 		 * A MovieClip containing all of a Dodge level
@@ -53,6 +51,7 @@
 			// set up the game MovieClip
 			game = new SWC_Game();
 			addChild(game);
+			anchor = new Point(game.x, game.y);
 			
 			game.mc_paused.visible = false;
 			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.CLICK, unpauseHelper);
@@ -70,10 +69,7 @@
 			player = new Player(this);
 			game.container_player.addChild(player.mc_object);
 			
-			// TODO change later
-			SoundMixer.stopAll();
-			//var bgm:Sound = new bgm_main();
-			//bgm.play();
+			SoundManager.playBGM("bgm_main");
 			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();
@@ -84,14 +80,14 @@
 			var ONE:int = 60;
 			var TWO:int = 180;
 			var THREE:int = 270;
-			var FOUR:int = 500;
-			var FIVE:int = 700;
+			var FOUR:int = 60;// 500;
+			var FIVE:int = 260;// 700;
 			
 			// TODO JSON
 			// demo level 1
 			if (false)
 			{
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
+			/*obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":100, "y":100}), ONE);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-100, "y":100}), ONE + 30);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, { "x":100, "y": -100} ), ONE + 60);
 			
@@ -107,7 +103,7 @@
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-200, "y":-200, "scale":5, "circle":true, "spawn":60}), THREE + 180);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":200, "scale":5, "circle":true, "spawn":60}), THREE + 180);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":200, "y":-200, "scale":5, "circle":true, "spawn":60}), THREE + 180);
-			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), THREE + 180);
+			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x": -200, "y":200, "scale":5, "circle":true, "spawn":60 } ), THREE + 180);*/
 			
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":600, "y":-100, "dx":-5, "scale":3, "active":200}), FOUR);
 			obstacleTimeline.addObstacle(new ABST_Obstacle(this, {"x":-600, "y":100, "dx":5, "scale":3, "active":200}), FOUR);
@@ -191,6 +187,13 @@
 			
 			obstacleManager = new ObstacleManager(this, obstacleTimeline);
 			engine.stage.addEventListener(KeyboardEvent.KEY_DOWN, downKeyboard);
+			engine.stage.focus = engine.stage;
+			
+			// tutorial
+			if (eng.currLevel == "lvl_tutorial_01")
+				game.mc_tutorial.gotoAndPlay("move");
+			else if (eng.currLevel == "lvl_tutorial_02")
+				game.mc_tutorial.gotoAndPlay("slow");
 		}
 		
 		/**
@@ -221,7 +224,12 @@
 						game.mc_paused.gotoAndPlay("in");
 						gamePaused = true;
 					}
-				break;
+					break;
+				case Keyboard.R:
+					// reset level
+					if (!obstacleTimeline.gameComplete())
+						onRestart(new MouseEvent(MouseEvent.CLICK));
+					break;
 			}
 		}
 		
@@ -262,7 +270,7 @@
 			// check if game over and needs to start the "Game Over" animation (once)
 			if (!player.alive && overCounter < 45 && ++overCounter == 45)
 			{
-				trace("[CG] Starting Game Over");
+				//trace("[CG] Starting Game Over");
 				game.mc_over.gotoAndPlay(1);
 				return completed;
 			}
@@ -271,7 +279,7 @@
 			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
 			{
 				trace(obstacleManager.hasObstacles());
-				trace("[CG] Starting Stage Clear");
+				//trace("[CG] Starting Stage Clear");
 				game.mc_over.gotoAndPlay(1);
 				game.mc_over.menuOver.gotext.gotoAndStop(2);
 				return completed;
@@ -284,8 +292,10 @@
 			}
 			obstacleManager.step();
 			
-			// TODO make better, shrink the game if time is slowed
-			game.scaleX = game.scaleY = .95 + TimeScale.s_scale * .05;
+			// zoom and pan the game on the player if time is slowed
+			game.scaleX = game.scaleY = 1 + (1 - TimeScale.s_scale) * .2;
+			game.x = anchor.x - (1 - TimeScale.s_scale) * player.mc_object.x * .4;
+			game.y = anchor.y - (1 - TimeScale.s_scale) * player.mc_object.y * .4;
 			
 			return completed;			// return the state of the container (if true, it is done)
 		}

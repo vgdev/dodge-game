@@ -34,6 +34,14 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
+		private var timePointsMax:int = 60;
+		private var timePoints:int = 60;
+		private const TP_CHANGE:int = 1;			// set to 0 for debugging - infinite TP
+		
+		private var actualScore:int = 0;
+		private var displayedScore:int = 0;
+		private const CHANGE_SCORE:int = 5;
+		
 		public function Player(_cg:ContainerGame)
 		{
 			super(_cg);
@@ -59,19 +67,36 @@ package vgdev.dodge.props
 		 */
 		override public function step():Boolean
 		{
-			if (!alive)
-				return completed;
+			if (alive)
+			{
+				updateVelocity();
+				updatePosition();
+			}
 			
-			updateVelocity();
-			updatePosition();
-			
-			// handle time scale based on if the time scale key is down or not
-			if (keysDown[TIME])
-				TimeScale.slowDown();
-			else
-				TimeScale.speedUp();
-			
+			updateTime();
+			updateScore();
+
 			return completed;
+		}
+		
+		/**
+		 * Handle time scale based on if the time scale key is down or not
+		 */
+		private function updateTime():void
+		{
+			if (alive && keysDown[TIME])
+			{
+				if (timePoints > 0)
+					TimeScale.slowDown();
+				else
+					TimeScale.speedUp();
+				changeTimePoints( -TP_CHANGE);
+			}
+			else
+			{
+				TimeScale.speedUp();
+				changeTimePoints(TP_CHANGE);
+			}
 		}
 		
 		/**
@@ -81,6 +106,8 @@ package vgdev.dodge.props
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
+			
+			//trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
 		}
 		
 		/**
@@ -106,6 +133,17 @@ package vgdev.dodge.props
 				if (Math.abs(dy) < speedLimitY * haltThreshold)
 					dy = 0;
 			}
+		}
+		
+		/**
+		 * Changes the displayed score to more accurately reflect the player's current score
+		 */
+		private function updateScore():void
+		{
+			if (actualScore > displayedScore)
+				displayedScore += Math.min(actualScore - displayedScore, CHANGE_SCORE);
+			else if (actualScore < displayedScore)
+				displayedScore -= Math.min(actualScore - displayedScore, CHANGE_SCORE);
 		}
 		
 		/**
@@ -155,6 +193,9 @@ package vgdev.dodge.props
 						mc_object.rotation = 0;
 				break;
 			}
+			
+			// keep TP indicator rotation rightside up
+			mc_object.tp_indicator.rotation = -mc_object.rotation;
 		}
 		
 		/**
@@ -212,6 +253,34 @@ package vgdev.dodge.props
 		}
 		
 		/**
+		 * Changes timePoints by the given amount
+		 * @param	tp		amount to change timePoints by
+		 */
+		public function changeTimePoints(tp:int):void
+		{
+			timePoints += tp;
+			if (timePoints < 0)
+				timePoints = 0;
+			else if (timePoints > timePointsMax)
+				timePoints = timePointsMax;
+			
+			// update TP indicator
+			var percent:Number = timePoints / timePointsMax;
+			if (percent >= .5)
+			{
+				mc_object.tp_indicator.base.maskL.rotation = 360 * percent;
+				mc_object.tp_indicator.base.maskR.rotation = 180;
+			}
+			else
+			{
+				mc_object.tp_indicator.base.maskL.rotation = 180;
+				mc_object.tp_indicator.base.maskR.rotation = 360 * percent;
+			}
+			if (percent < 1)
+				mc_object.tp_indicator.gotoAndPlay("visible");
+		}
+		
+		/**
 		 * Kill the player
 		 * Only works if the player is alive
 		 */
@@ -234,5 +303,24 @@ package vgdev.dodge.props
 		{
 			return new Point(dx, dy);
 		}
+		
+		/**
+		 * Get the player's score to be displayed
+		 * @return		An int representing the score value to be displayed
+		 */
+		public function getScore():int
+		{
+			return displayedScore;
+		}
+		
+		/**
+		 * Changes the actualScore variable by a given integer
+		 * @param	s		value to change actualScore by
+		 */
+		public function addScore(s:int):void
+		{
+			actualScore += s;
+		}
+		
 	}
 }

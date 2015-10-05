@@ -64,7 +64,7 @@ package vgdev.dodge.props
 			{
 				mc_object.graphics.lineStyle(1, 0xFF0000, 1);
 				mc_object.graphics.beginFill(0xFF0000, .2);
-				if (_params["circle"])
+				if (_params["shape"] == "circle")
 					mc_object.graphics.drawCircle(0, 0, 50);
 				else
 					mc_object.graphics.drawRect( -50, -50, 100, 100);
@@ -72,7 +72,7 @@ package vgdev.dodge.props
 				
 				mc_object.tele.graphics.lineStyle(1, 0xFF0000, 1);
 				mc_object.tele.graphics.beginFill(0xFF0000, .7);
-				if (_params["circle"])
+				if (_params["shape"] == "circle")
 					mc_object.tele.graphics.drawCircle(0, 0, 50);
 				else
 					mc_object.tele.graphics.drawRect( -50, -50, 100, 100);
