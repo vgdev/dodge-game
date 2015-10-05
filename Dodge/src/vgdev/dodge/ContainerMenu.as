@@ -30,6 +30,8 @@
 			super();
 			eng = _eng;
 			
+			SoundManager.playBGM("bgm_menu");
+			
 			// set up button glow
 			buttonGlow = new GlowFilter(0x73FFF8, .75, 16, 16, 4);
 			

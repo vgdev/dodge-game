@@ -34,10 +34,6 @@
 		
 		private var overCounter:int = 0;
 		private var json:Object;					// level data
-		
-		// TODO move to SoundManager class
-		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
-		private var bgm_main:Class;
 
 		/**
 		 * A MovieClip containing all of a Dodge level
@@ -70,10 +66,7 @@
 			player = new Player(this);
 			game.container_player.addChild(player.mc_object);
 			
-			// TODO change later
-			SoundMixer.stopAll();
-			//var bgm:Sound = new bgm_main();
-			//bgm.play();
+			SoundManager.playBGM("bgm_main");
 			
 			// TODO make better later
 			obstacleTimeline = new ObstacleTimeline();
