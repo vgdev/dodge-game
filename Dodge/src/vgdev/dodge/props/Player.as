@@ -102,7 +102,7 @@ package vgdev.dodge.props
 		/**
 		 * Update the player's x and y position based on its dx and dy
 		 */
-		private function updatePosition():void
+		override protected function updatePosition():void
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);

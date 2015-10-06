@@ -3,6 +3,7 @@ package vgdev.dodge.mechanics
 	import flash.geom.Point;
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.props.ABST_Obstacle;
+	import vgdev.dodge.props.ABST_Pickup;
 
 	/**
 	 * Manages and updates a level's Obstacles
@@ -15,6 +16,8 @@ package vgdev.dodge.mechanics
 		
 		/// A list of 'active' obstacles
 		public var obstacles:Array = [];
+		/// A list of 'active' pickups
+		public var pickups:Array = [];
 		
 		public function ObstacleManager(_cg:ContainerGame, _timeline:ObstacleTimeline)
 		{
@@ -51,17 +54,19 @@ package vgdev.dodge.mechanics
 		 */
 		public function step():void
 		{
-			var obstacle:ABST_Obstacle;
 			var i:int;
 			
-			// check for obstacles to spawn
+			// check for obstacles and pickups to spawn
 			var toSpawn:Array = timeline.step();
 			if (cg.gameActive && toSpawn != null && toSpawn.length > 0)
 			{
-				for (i = toSpawn.length - 1; i >= 0; i--)		// spawn the obstacles associated with this frame
+				for (i = toSpawn.length - 1; i >= 0; i--)		// spawn the obstacles and pickups associated with this frame
 				{
 					cg.game.container_telegraphs.addChild(toSpawn[i].mc_object);
-					obstacles.push(toSpawn[i]);
+					if (toSpawn[i] is ABST_Obstacle)
+						obstacles.push(toSpawn[i]);
+					else if (toSpawn[i] is ABST_Pickup)
+						pickups.push(toSpawn[i]);
 					toSpawn[i].activate();
 				}
 			}
@@ -69,6 +74,7 @@ package vgdev.dodge.mechanics
 			var ptPlayer:Point = (new Point(cg.player.mc_object.x + 400, cg.player.mc_object.y + 300));
 			
 			// update the active obstacles
+			var obstacle:ABST_Obstacle;
 			for (i = obstacles.length - 1; i >= 0; i--)
 			{
 				obstacle = obstacles[i] as ABST_Obstacle;
@@ -82,6 +88,21 @@ package vgdev.dodge.mechanics
 				}
 			}
 			// end update active obstacles
+			
+			// update the active 
+			var pickup:ABST_Pickup;
+			for (i = pickups.length - 1; i >= 0; i--)
+			{
+				pickup = pickups[i] as ABST_Pickup;
+				if (pickup.step())
+				{
+					if (cg.game.container_telegraphs.contains(pickup.mc_object))
+						cg.game.container_telegraphs.removeChild(pickup.mc_object);
+					pickups.splice(i, 1);
+					pickup = null;
+					trace("[OM] Removed an pickup");
+				}
+			}
 		}
 	}
 }
