@@ -74,6 +74,8 @@
     <asset path="img\apple.png" />
     <asset path="img\orange.png" />
     <asset path="img\peach.png" />
+    <asset path="bgm\BGM_mainMenu.mp3" />
+    <asset path="bgm\BGM_WildstarVanguard.mp3" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

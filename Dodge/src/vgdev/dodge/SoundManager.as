@@ -7,8 +7,11 @@ package vgdev.dodge
 	public class SoundManager 
 	{
 		
+		[Embed(source="../../../bgm/BGM_mainMenu.mp3")]
+		private static var bgm_menu:Class;
 		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
 		private static var bgm_main:Class;
+		
 		
 		private static var bgm:SoundChannel;
 		
@@ -35,6 +38,9 @@ package vgdev.dodge
 			{
 				case "bgm_main":
 					snd = new bgm_main();
+					break;
+				case "bgm_menu":
+					snd = new bgm_menu();
 					break;
 				default:
 					trace("WARNING: No music located for " + music + "!");
