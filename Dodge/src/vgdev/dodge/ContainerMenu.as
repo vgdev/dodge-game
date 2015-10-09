@@ -21,11 +21,14 @@
 		private const MAX_ALPHA:Number = .4;	// max alpha value for the button glow
 		private var currBtn:SimpleButton;		// helper to reset glow
 		
+		private var levelBtns:Array = [];		// holds the 8 level buttons
+		private var levelPage:int = 0;
+		
 		/**
 		 * A MovieClip handling the main menu
 		 * @param	_eng			A reference to the Engine
 		 */
-		public function ContainerMenu(_eng:Engine)
+		public function ContainerMenu(_eng:Engine, skipToLevel:Boolean = false)
 		{			
 			super();
 			eng = _eng;
@@ -49,14 +52,57 @@
 			swc.btn_options.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
 			swc.btn_credits.addEventListener(MouseEvent.ROLL_OVER, ovrBtn);
 			
-			// set up levels
-			// TODO remove temporary hard-coded stuff
-			swc.mc_levels.base.level_00.tf_title.text = "Test";
-			swc.mc_levels.base.level_00.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
-			swc.mc_levels.base.level_01.tf_title.text = "Tester";
-			swc.mc_levels.base.level_01.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
-			swc.mc_levels.base.level_02.tf_title.text = "Testest";
-			swc.mc_levels.base.level_02.hitbox.addEventListener(MouseEvent.CLICK, onLevel);
+			levelBtns = [swc.mc_levels.base.level_00, swc.mc_levels.base.level_01, swc.mc_levels.base.level_02, swc.mc_levels.base.level_03,
+						 swc.mc_levels.base.level_04, swc.mc_levels.base.level_05, swc.mc_levels.base.level_06, swc.mc_levels.base.level_07];
+			
+			// attach listeners to all level buttons
+			for (var i:int = 0; i < levelBtns.length; i++)
+			{
+				levelBtns[i].hitbox.addEventListener(MouseEvent.CLICK, onLevel);
+			}
+			
+			swc.mc_levels.base.btn_left.addEventListener(MouseEvent.CLICK, onLevelLeft);
+			swc.mc_levels.base.btn_right.addEventListener(MouseEvent.CLICK, onLevelRight);
+			
+			switchToPage(0);
+			
+			// show the level select screen
+			if (skipToLevel)
+			{
+				swc.gotoAndStop(swc.totalFrames);
+				onStart(null);
+			}
+		}
+		
+		private function onLevelLeft(e:MouseEvent):void
+		{
+			if (levelPage > 0)
+				switchToPage(--levelPage);
+		}
+		
+		private function onLevelRight(e:MouseEvent):void
+		{
+			if (levelPage < eng.levels.levelPages.length - 1)
+				switchToPage(++levelPage);
+		}
+
+		public function switchToPage(page:int):void
+		{
+			// hide or show left and right page buttons
+			swc.mc_levels.base.btn_left.visible = false;
+			if (page > 0)
+				swc.mc_levels.base.btn_left.visible = true;
+			swc.mc_levels.base.btn_right.visible = false;
+			if (page < eng.levels.levelPages.length - 1)
+				swc.mc_levels.base.btn_right.visible = true;
+			
+			for (var i:int = 0; i < levelBtns.length; i++)
+			{
+				var lvlName:String = eng.levels.levelPages[page][i];
+				levelBtns[i].visible = lvlName != null;
+				levelBtns[i].tf_title.text = "1234abcTEST";// (lvlName == null ? "" : lvlName);
+				trace(i + " " + lvlName);
+			}
 		}
 		
 		/**
@@ -92,20 +138,7 @@
 		 */
 		private function onLevel(e:MouseEvent):void
 		{
-			// TODO remove temporary hard-coded stuff
-			trace(e.target.parent.name);
-			switch(e.target.parent.name)
-			{
-				case "level_00":
-					eng.currLevel = "lvl_tutorial_01";
-				break;
-				case "level_01":
-					eng.currLevel = "lvl_tutorial_02";
-				break;
-				case "level_02":
-					eng.currLevel = "lvl_test";
-				break;
-			}
+			eng.currLevel = eng.levels.levelPages[levelPage][int(e.target.parent.name.substring(7))];
 			completed = true;
 		}
 		
