@@ -2,6 +2,7 @@ package vgdev.dodge.mechanics
 {
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.props.ABST_Obstacle;
+	import vgdev.dodge.props.ABST_Pickup;
 	
 	/**
 	 * Helper to load a level's obstacles
@@ -65,11 +66,13 @@ package vgdev.dodge.mechanics
 					try
 					{
 						trace("Obstacle has time " + obstacle["time"]);
-						// TODO verify time exists
-						var time:int = anchors[obstacle["time"]];
-						if (obstacle["offset"])
-							time += toFrame(obstacle["offset"]);
-						cg.addObstacle(new ABST_Obstacle(cg, obstacle), time);
+						if (anchors[obstacle["time"]] != null)
+						{
+							var time:int = anchors[obstacle["time"]];
+							if (obstacle["offset"])
+								time += toFrame(obstacle["offset"]);
+							cg.addProp(new ABST_Obstacle(cg, obstacle), time);
+						}
 					} catch (e:Error)
 					{
 						trace("ERROR: When setting up level, invalid anchor.\n" + e.getStackTrace());
@@ -77,6 +80,26 @@ package vgdev.dodge.mechanics
 				}
 			}
 			
+			if (json["pickups"])
+			{
+				for each (var pickup:Object in json["pickups"])
+				{
+					try
+					{
+						trace("Pickup has time " + pickup["time"]);
+						if (anchors[pickup["time"]] != null)
+						{
+							time = anchors[pickup["time"]];
+							if (pickup["offset"])
+								time += toFrame(pickup["offset"]);
+							cg.addProp(new ABST_Pickup(cg, pickup), time);
+						}
+					} catch (e:Error)
+					{
+						trace("ERROR: When setting up level, invalid anchor.\n" + e.getStackTrace());
+					}
+				}
+			}
 			
 			trace("[OL] Load completed without errors.");
 			return true;

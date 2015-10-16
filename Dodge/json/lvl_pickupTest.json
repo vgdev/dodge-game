@@ -1,0 +1,20 @@
+{
+	"anchors":{
+		"apple":0.5
+	},
+	"obstacles": [
+		{"image": "apple", "x":0, "y":0, "dx": 0.2, "scale":0.3, "rot":180, "active":9999, "time":"apple"}
+	],
+	"pickups": [
+		{"effect":"hard_reset", "x":-100, "y":0, "active":900, "time":"apple"},
+		{"effect":"score", "amount":100, "x":-100, "y":-100, "active":900, "time":"apple"},
+		{"effect":"tp", "amount":300, "x":-100, "y":100, "active":900, "time":"apple"}
+	],
+	"meta":{
+		"name-internal":"lvl_pickupTest",
+		"name-external":"Test PU",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}

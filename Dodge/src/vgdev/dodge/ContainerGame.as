@@ -9,7 +9,7 @@
 	import vgdev.dodge.mechanics.ObstacleLoader;
 	import vgdev.dodge.mechanics.ObstacleManager;
 	import vgdev.dodge.mechanics.ObstacleTimeline;
-	import vgdev.dodge.props.ABST_Obstacle;
+	import vgdev.dodge.props.ABST_Prop;
 	import vgdev.dodge.props.Player;
 	import vgdev.dodge.mechanics.TimeScale;
 	import flash.events.MouseEvent;
@@ -198,12 +198,12 @@
 		
 		/**
 		 * Helper to be called from ObstacleLoader
-		 * @param	obst		the obstacle to add to the timeline
-		 * @param	time		the frame to add the obstacle on
+		 * @param	obst		the obstacle/pickup to add to the timeline
+		 * @param	time		the frame to add the obstacle/pickup on
 		 */
-		public function addObstacle(obst:ABST_Obstacle, time:int):void
+		public function addProp(prop:ABST_Prop, time:int):void
 		{
-			obstacleTimeline.addObstacle(obst, time);
+			obstacleTimeline.addProp(prop, time);
 		}
 		
 		/**
@@ -298,6 +298,16 @@
 			game.y = anchor.y - (1 - TimeScale.s_scale) * player.mc_object.y * .4;
 			
 			return completed;			// return the state of the container (if true, it is done)
+		}
+		
+		/**
+		 * Ends the current stage immediately
+		 */
+		public function endStage():void
+		{
+			// rather clunky, TODO fix later
+			obstacleManager.reset();
+			obstacleTimeline.frameNow = obstacleTimeline.highestFrame;
 		}
 		
 		/**

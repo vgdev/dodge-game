@@ -34,8 +34,8 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
-		private var timePointsMax:int = 60;
-		private var timePoints:int = 60;
+		private var timePointsMax:int = 300;
+		private var timePoints:int = 300;
 		private const TP_CHANGE:int = 1;			// set to 0 for debugging - infinite TP
 		
 		private var actualScore:int = 0;
@@ -90,7 +90,7 @@ package vgdev.dodge.props
 					TimeScale.slowDown();
 				else
 					TimeScale.speedUp();
-				changeTimePoints( -TP_CHANGE);
+				changeTimePoints( -TP_CHANGE * 2);
 			}
 			else
 			{
@@ -102,7 +102,7 @@ package vgdev.dodge.props
 		/**
 		 * Update the player's x and y position based on its dx and dy
 		 */
-		private function updatePosition():void
+		override protected function updatePosition():void
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
