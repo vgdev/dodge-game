@@ -17,6 +17,8 @@ package vgdev.dodge
 		public var lvl_test:Class;
 		[Embed(source="../../../json/lvl_collisionTest.json", mimeType="application/octet-stream")]
 		public var lvl_collisionTest:Class;
+		[Embed(source="../../../json/lvl_pickupTest.json", mimeType="application/octet-stream")]
+		public var lvl_pickupTest:Class;
 		
 		private var levels:Object;
 		public var levelPages:Array = [];		// a 2D
@@ -33,10 +35,11 @@ package vgdev.dodge
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
 			levels["lvl_test"] = JSON.parse(new lvl_test());
 			levels["lvl_collisionTest"] = JSON.parse(new lvl_collisionTest());
+			levels["lvl_pickupTest"] = JSON.parse(new lvl_pickupTest());
 
 			// set up levelPages array
 			levelPages[0] = ["lvl_tutorial_01", "lvl_tutorial_02", null, null, null, null, null, null];
-			levelPages[1] = [null, null, null, null, null, null, "lvl_test", null];
+			levelPages[1] = ["lvl_pickupTest", null, null, null, null, null, "lvl_test", null];
 		}
 		
 		public function getLevel(lvl:String):Object

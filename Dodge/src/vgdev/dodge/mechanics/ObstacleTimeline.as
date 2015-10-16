@@ -1,6 +1,8 @@
 package vgdev.dodge.mechanics 
 {
+	import vgdev.dodge.props.ABST_Prop;
 	import vgdev.dodge.props.ABST_Obstacle;
+	import vgdev.dodge.props.ABST_Pickup;
 	
 	/**
 	 * Keeps track of the obstacles to be spawned in a level
@@ -43,7 +45,7 @@ package vgdev.dodge.mechanics
 		 * @param	obstacle		The Obstacle to be spawned
 		 * @param	frame			The frame on which to spawn
 		 */
-		public function addObstacle(obstacle:ABST_Obstacle, frame:int):void
+		public function addProp(obstacle:ABST_Prop, frame:int):void
 		{
 			if (timeline[frame] == null)
 				timeline[frame] = [];
