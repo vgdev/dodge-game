@@ -1,7 +1,5 @@
 package vgdev.dodge.props 
 {
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import vgdev.dodge.ContainerGame;
@@ -35,20 +33,10 @@ package vgdev.dodge.props
 		public const STATE_DEAD:int = 4;
 		
 		public var currentState:int = STATE_WAIT;
-		
-		// helpers to use if obstacle is a bitmap instead of just a drawing shape
-		public var isBitmap:Boolean = false;
-		public var bitmapData:BitmapData;
-		
-		// bitmap embedding
-		[Embed(source = "../../../../img/doge.png")]
-		public static var Bitmap_Doge:Class;
-		[Embed(source = "../../../../img/orange.png")]
-		public static var Bitmap_Orange:Class;
-		/*[Embed(source="../../../../img/peach.png")]
-		public static var Bitmap_Peach:Class;*/
-		[Embed(source = "../../../../img/apple.png")]
-		public static var Bitmap_Apple:Class;
+
+		// MC's holding the images
+		private var imgBase:MovieClip;
+		private var imgTele:MovieClip;
 		
 		public function ABST_Obstacle(_cg:ContainerGame, _params:Object)
 		{
@@ -80,25 +68,17 @@ package vgdev.dodge.props
 			}
 			else
 			{
-				isBitmap = true;
-				var imgClass:Class;
-				switch (_params["image"])
-				{
-					case "doge":		imgClass = Bitmap_Doge;		break;
-					case "apple":		imgClass = Bitmap_Apple;	break;
-					case "orange":		imgClass = Bitmap_Orange;	break;
-					//case "peach":		imgClass = Bitmap_Peach;	break;
-					default:			trace("ERROR in ABST_Obstacle: Image " + _params["image"] + " not found!");
-				}
-				var img:Bitmap = new imgClass();
-				bitmapData = img.bitmapData;
-				//img.x -= img.width * .5;
-				//img.y -= img.height * .5;
-				mc_object.addChild(img);
-				img = new imgClass();
-				//img.x -= img.width * .5;
-				//img.y -= img.height * .5;
-				mc_object.tele.addChild(img);
+				imgBase = new SWC_Obstacle();
+				imgTele = new SWC_Obstacle();
+
+				imgBase.gotoAndStop(_params["image"]);
+				imgTele.gotoAndStop(_params["image"]);
+				
+				imgBase.hitbox.visible = false;
+				imgTele.hitbox.visible = false;
+							
+				mc_object.addChild(imgBase);
+				mc_object.tele.addChild(imgTele);
 			}
 			
 			// read and set params from _params object
@@ -187,17 +167,15 @@ package vgdev.dodge.props
 		 */
 		protected function checkCollision():void
 		{
-			var ptPlayer:Point = (new Point(cg.player.mc_object.x + 400, cg.player.mc_object.y + 300));
+			var ptPlayer:Point = cg.localToGlobal(new Point(cg.player.mc_object.x + 0, cg.player.mc_object.y + 0));
 			if (mc_object.hitTestObject(cg.player.mc_object))
 			{
-				// TODO fix me please
-				if ((!isBitmap && mc_object.hitTestPoint(ptPlayer.x, ptPlayer.y, true)) ||
-					 HitTester.realHitTest(mc_object, ptPlayer))
+				if (imgBase.hitbox && imgBase.hitbox.hitTestPoint(ptPlayer.x, ptPlayer.y, true))
 				{
 					cg.player.kill();
-					trace("DEAD");
+					//trace("DEAD");
 				}
-				else trace("ok");
+				//else trace("ok " + currentTime);
 			}
 		}
 		

@@ -1,9 +1,9 @@
 {
 	"anchors":{
-		"apple":1
+		"apple":0.5
 	},
 	"obstacles": [
-		{"image": "apple", "x":0, "y":0, "dx": 0.2, "scale":0.3, "active":9999, "time":"apple"}
+		{"image": "apple", "x":0, "y":0, "dx": 0.2, "scale":0.3, "rot":180, "active":9999, "time":"apple"}
 	],
 	"meta":{
 		"name-internal":"lvl_collisionTest",

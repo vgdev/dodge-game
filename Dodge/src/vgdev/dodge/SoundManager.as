@@ -46,7 +46,7 @@ package vgdev.dodge
 					trace("WARNING: No music located for " + music + "!");
 					return;
 			}
-			bgm = snd.play(0, 9999);
+			//bgm = snd.play(0, 9999);
 		}
 		
 		public static function stopBGM():void

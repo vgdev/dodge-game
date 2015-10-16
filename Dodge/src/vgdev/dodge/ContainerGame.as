@@ -227,7 +227,7 @@
 					break;
 				case Keyboard.R:
 					// reset level
-					if (!obstacleTimeline.gameComplete())
+					//if (!obstacleTimeline.gameComplete())
 						onRestart(new MouseEvent(MouseEvent.CLICK));
 					break;
 			}

@@ -8,10 +8,13 @@
 		{"image": "apple", "x":800, "y":-800, "dr": -5, "dx":-8, "dy":8, "scale":0.4, "active":200, "time":"apple", "offset":1},
 		{"image": "apple", "x":0, "y":-800, "dr": 4, "dx":6, "dy":8, "scale":0.4, "active":200, "time":"apple", "offset":2},
 		
-		
 		{"image": "orange", "x":800, "y":-800, "dr": 4, "dx":-8, "dy":8, "scale":0.4, "active":200, "time":"orange"},
 		{"image": "orange", "x":800, "y":800, "dr": -8, "dx":-8, "dy":-8, "scale":0.3, "active":200, "time":"orange", "offset":1},
-		{"image": "orange", "x":0, "y":800, "dr": 5, "dx":6, "dy":-8, "scale":0.4, "active":200, "time":"orange", "offset":2}
+		{"image": "orange", "x":0, "y":800, "dr": 5, "dx":6, "dy":-8, "scale":0.4, "active":200, "time":"orange", "offset":2},
+		
+		{"image": "peach", "x":-800, "y":-800, "dr": 5,"dx":8, "dy":8, "scale":0.4, "active":200, "time":"orange", "offset":6},
+		{"image": "doge", "x":800, "y":-800, "dr": -5, "dx":-8, "dy":8, "scale":0.4, "active":200, "time":"orange", "offset":7},
+		{"image": "apple", "x":0, "y":-800, "dr": 4, "dx":6, "dy":8, "scale":0.4, "active":200, "time":"orange", "offset":8}
 	],
 	"meta":{
 		"name-internal":"lvl_tutorial",
