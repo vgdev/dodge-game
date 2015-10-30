@@ -23,7 +23,10 @@ package vgdev.dodge.props
 			effectType = setParam("effect", effectType);
 			effectAmount = setParam("amount", effectAmount);
 			
-			if (!_params["image"])
+			mc_object.addChild(new SWC_Pickup());
+			hitbox = mc_object;
+			
+			/*if (!_params["image"])
 			{
 				mc_object.graphics.lineStyle(1, 0x00FF00, 1);
 				mc_object.graphics.beginFill(0x00FF00, .5);
@@ -36,7 +39,7 @@ package vgdev.dodge.props
 			else
 			{
 				// TODO
-			}
+			}*/
 		}
 		
 		/**

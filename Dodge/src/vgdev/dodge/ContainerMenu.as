@@ -100,7 +100,7 @@
 			{
 				var lvlName:String = eng.levels.levelPages[page][i];
 				levelBtns[i].visible = lvlName != null;
-				levelBtns[i].tf_title.text = "1234abcTEST";// (lvlName == null ? "" : lvlName);
+				levelBtns[i].tf_title.text = (lvlName == null ? "" : lvlName);
 				trace(i + " " + lvlName);
 			}
 		}

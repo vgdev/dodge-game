@@ -56,6 +56,7 @@
     <element path="swc\SWC_MainMenu.swc" />
     <element path="swc\SWC_player.swc" />
     <element path="swc\SWC_Obstacle.swc" />
+    <element path="swc\SWC_Pickup.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

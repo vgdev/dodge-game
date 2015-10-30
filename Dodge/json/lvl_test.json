@@ -1,9 +1,29 @@
 {
 	"anchors":{
-		"apple":1,
+		"apple":121,
+		"test":1,
 		"orange":6
 	},
 	"obstacles": [
+		{"type":"targeted", "image": "triangle", "x":100, "y":100, "velocity":9, "spawn":90, "active":200, "time":"test"},
+		{"type":"targeted", "image": "triangle", "x":-300, "y":250, "velocity":9, "spawn":90, "active":200, "time":"test", "offset":1},
+		{"type":"targeted", "image": "triangle", "x":-100, "y":-100, "velocity":9, "spawn":90, "active":200, "time":"test", "offset":2},
+		{"type":"targeted", "image": "triangle", "x":0, "y":0, "velocity":9, "spawn":90, "active":200, "time":"test", "offset":3},
+		{"type":"targeted", "image": "triangle", "x":200, "y":-200, "velocity":9, "spawn":90, "active":200, "time":"test", "offset":4},
+		
+		
+		{"type":"targeted", "image": "triangle", "x":200, "y":-200, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":5},
+		{"type":"targeted", "image": "triangle", "x":200, "y":-100, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":5},
+		{"type":"targeted", "image": "triangle", "x":200, "y":  0, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":5},
+		{"type":"targeted", "image": "triangle", "x":200, "y": 100, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":5},
+		{"type":"targeted", "image": "triangle", "x":200, "y": 200, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":5},
+		
+		{"type":"targeted", "image": "triangle", "x":-200, "y":-200, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":6},
+		{"type":"targeted", "image": "triangle", "x":-200, "y":-100, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":6},
+		{"type":"targeted", "image": "triangle", "x":-200, "y":  0, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":6},
+		{"type":"targeted", "image": "triangle", "x":-200, "y": 100, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":6},
+		{"type":"targeted", "image": "triangle", "x":-200, "y": 200, "velocity":9, "spawn":60, "active":200, "time":"test", "offset":6},
+		
 		{"image": "apple", "x":-800, "y":-800, "dr": 5,"dx":8, "dy":8, "scale":0.4, "active":200, "time":"apple"},
 		{"image": "apple", "x":800, "y":-800, "dr": -5, "dx":-8, "dy":8, "scale":0.4, "active":200, "time":"apple", "offset":1},
 		{"image": "apple", "x":0, "y":-800, "dr": 4, "dx":6, "dy":8, "scale":0.4, "active":200, "time":"apple", "offset":2},
@@ -19,6 +39,7 @@
 	"meta":{
 		"name-internal":"lvl_tutorial",
 		"name-external":"Tutorial",
+		"bg":"squares",
 		"format":"dodge-level",
 		"format-version":1,
 		"start-time":0

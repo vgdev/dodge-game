@@ -29,17 +29,17 @@ package vgdev.dodge
 			// set up levels object
 			levels = new Object();
 
-			levels["lvl_tutorial_01"] = JSON.parse(new lvl_tutorial_01());
-			levels["lvl_tutorial_02"] = JSON.parse(new lvl_tutorial_02());
+			levels["Tutorial 1"] = JSON.parse(new lvl_tutorial_01());
+			levels["Tutorial 2"] = JSON.parse(new lvl_tutorial_02());
 
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
-			levels["lvl_test"] = JSON.parse(new lvl_test());
+			levels["Generic Test"] = JSON.parse(new lvl_test());
 			levels["lvl_collisionTest"] = JSON.parse(new lvl_collisionTest());
-			levels["lvl_pickupTest"] = JSON.parse(new lvl_pickupTest());
+			levels["Pickup Test"] = JSON.parse(new lvl_pickupTest());
 
 			// set up levelPages array
-			levelPages[0] = ["lvl_tutorial_01", "lvl_tutorial_02", null, null, null, null, null, null];
-			levelPages[1] = ["lvl_pickupTest", null, null, null, null, null, "lvl_test", null];
+			levelPages[0] = ["Tutorial 1", "Tutorial 2", null, null, null, null, null, null];
+			levelPages[1] = ["Pickup Test", null, null, null, null, null, "Generic Test", null];
 		}
 		
 		public function getLevel(lvl:String):Object

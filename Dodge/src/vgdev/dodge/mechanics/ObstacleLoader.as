@@ -3,6 +3,7 @@ package vgdev.dodge.mechanics
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.props.ABST_Obstacle;
 	import vgdev.dodge.props.ABST_Pickup;
+	import vgdev.dodge.props.OBST_Targeted;
 	
 	/**
 	 * Helper to load a level's obstacles
@@ -71,7 +72,17 @@ package vgdev.dodge.mechanics
 							var time:int = anchors[obstacle["time"]];
 							if (obstacle["offset"])
 								time += toFrame(obstacle["offset"]);
-							cg.addProp(new ABST_Obstacle(cg, obstacle), time);
+							if (obstacle["type"])
+							{
+								switch (obstacle["type"])
+								{
+									case "targeted":
+										cg.addProp(new OBST_Targeted(cg, obstacle), time);
+									break;
+								}
+							}
+							else
+								cg.addProp(new ABST_Obstacle(cg, obstacle), time);
 						}
 					} catch (e:Error)
 					{

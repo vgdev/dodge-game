@@ -53,6 +53,12 @@
 			addChild(game);
 			anchor = new Point(game.x, game.y);
 			
+			if (_json["meta"]["bg"] != null)
+			{
+				trace("Choosing background " + _json["meta"]["bg"]);
+				game.mc_bg.gotoAndStop(_json["meta"]["bg"]);
+			}
+			
 			game.mc_paused.visible = false;
 			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.CLICK, unpauseHelper);
 			game.mc_paused.menuPaused.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
@@ -190,9 +196,9 @@
 			engine.stage.focus = engine.stage;
 			
 			// tutorial
-			if (eng.currLevel == "lvl_tutorial_01")
+			if (eng.currLevel == "Tutorial 1")
 				game.mc_tutorial.gotoAndPlay("move");
-			else if (eng.currLevel == "lvl_tutorial_02")
+			else if (eng.currLevel == "Tutorial 2")
 				game.mc_tutorial.gotoAndPlay("slow");
 		}
 		
