@@ -3,6 +3,7 @@ package vgdev.dodge.mechanics
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.props.ABST_Obstacle;
 	import vgdev.dodge.props.ABST_Pickup;
+	import vgdev.dodge.props.OBST_DelayedMovement;
 	import vgdev.dodge.props.OBST_Targeted;
 	
 	/**
@@ -66,7 +67,7 @@ package vgdev.dodge.mechanics
 				{
 					try
 					{
-						trace("Obstacle has time " + obstacle["time"]);
+						//trace("Obstacle has time " + obstacle["time"]);
 						if (anchors[obstacle["time"]] != null)
 						{
 							var time:int = anchors[obstacle["time"]];
@@ -78,6 +79,9 @@ package vgdev.dodge.mechanics
 								{
 									case "targeted":
 										cg.addProp(new OBST_Targeted(cg, obstacle), time);
+									break;
+									case "delayed":
+										cg.addProp(new OBST_DelayedMovement(cg, obstacle), time);
 									break;
 								}
 							}
