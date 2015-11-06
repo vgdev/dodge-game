@@ -1,0 +1,71 @@
+{
+	"anchors":{
+		"first":4,
+		"power1":8,
+		"second":11,
+		"power2":16,
+		"third":18
+	},
+	"obstacles": [
+		{"shape": "rect", "x":-200, "y": 200, "scale":2, "spawn":30, "time":"first"},
+		{"shape": "rect", "x": 200, "y":   0, "scale":2, "spawn":30, "time":"first", "offset":0.5},
+		{"shape": "rect", "x":  50, "y": 150, "scale":2, "spawn":30, "time":"first", "offset":1.0},
+		{"shape": "rect", "x":-230, "y": 250, "scale":2, "spawn":30, "time":"first", "offset":1.5},
+		{"shape": "rect", "x": 120, "y":-100, "scale":2, "spawn":30, "time":"first", "offset":2.0},
+		{"shape": "rect", "x": 300, "y": -75, "scale":2, "spawn":30, "time":"first", "offset":2.5},
+		{"shape": "rect", "x":-100, "y":-185, "scale":2, "spawn":30, "time":"first", "offset":3.0},
+		{"shape": "rect", "x":   0, "y": 120, "scale":2, "spawn":30, "time":"first", "offset":3.5},
+		{"shape": "rect", "x":-220, "y": 200, "scale":2, "spawn":30, "time":"first", "offset":4.0},
+		
+		{"shape": "circle", "x": 100, "y": -20, "scale":2, "spawn":30, "time":"second"},
+		{"shape": "circle", "x": 200, "y": 120, "scale":3, "spawn":30, "time":"second"},
+		{"shape": "circle", "x":-300, "y":  60, "scale":1, "spawn":30, "time":"second", "offset":0.5},
+		{"shape": "circle", "x":-180, "y":  10, "scale":4, "spawn":30, "time":"second", "offset":0.5},
+		{"shape": "circle", "x":  50, "y":-150, "scale":3, "spawn":30, "time":"second", "offset":1.0},
+		{"shape": "circle", "x": 250, "y":-110, "scale":3, "spawn":30, "time":"second", "offset":1.0},
+		{"shape": "circle", "x": -60, "y": 150, "scale":2, "spawn":30, "time":"second", "offset":1.5},
+		{"shape": "circle", "x": 360, "y":-190, "scale":3, "spawn":30, "time":"second", "offset":1.5},
+		{"shape": "circle", "x":-350, "y":  40, "scale":2, "spawn":30, "time":"second", "offset":2.0},
+		{"shape": "circle", "x":-100, "y":-100, "scale":2, "spawn":30, "time":"second", "offset":2.0},
+		{"shape": "circle", "x": 300, "y": 275, "scale":4, "spawn":30, "time":"second", "offset":2.5},
+		{"shape": "circle", "x":-230, "y":-175, "scale":2, "spawn":30, "time":"second", "offset":2.5},
+		{"shape": "circle", "x": 320, "y":  45, "scale":3, "spawn":30, "time":"second", "offset":3.0},
+		{"shape": "circle", "x":-260, "y": 145, "scale":2, "spawn":30, "time":"second", "offset":3.0},
+		{"shape": "circle", "x":  20, "y":-120, "scale":3, "spawn":30, "time":"second", "offset":3.5},
+		{"shape": "circle", "x":-120, "y": -20, "scale":3, "spawn":30, "time":"second", "offset":3.5},
+		{"shape": "circle", "x":  20, "y":  20, "scale":4, "spawn":30, "time":"second", "offset":4.0},
+		{"shape": "circle", "x":-220, "y": 220, "scale":2, "spawn":30, "time":"second", "offset":4.0},
+		
+		{"image": "triangle", "x": 300, "y": -50, "dr": 5, "scale":3, "spawn":30, "time":"third"},
+		{"image": "triangle", "x": 100, "y":-220, "dr": 3, "scale":4, "spawn":30, "time":"third"},
+		{"image": "triangle", "x": 200, "y": 160, "dr": 2, "scale":2, "spawn":30, "time":"third", "offset":0.5},
+		{"image": "triangle", "x":-280, "y":  20, "dr": 4, "scale":5, "spawn":30, "time":"third", "offset":0.5},
+		{"image": "triangle", "x": -50, "y":   0, "dr":-2, "scale":4, "spawn":30, "time":"third", "offset":1.0},
+		{"image": "triangle", "x":-250, "y": 110, "dr":-5, "scale":3, "spawn":30, "time":"third", "offset":1.0},
+		{"image": "triangle", "x": 100, "y":-120, "dr": 3, "scale":3, "spawn":30, "time":"third", "offset":1.5},
+		{"image": "triangle", "x": 290, "y":-250, "dr":-1, "scale":3, "spawn":30, "time":"third", "offset":1.5},
+		{"image": "triangle", "x":-250, "y": 140, "dr":-2, "scale":2, "spawn":30, "time":"third", "offset":2.0},
+		{"image": "triangle", "x": 100, "y": 100, "dr": 2, "scale":4, "spawn":30, "time":"third", "offset":2.0},
+		{"image": "triangle", "x":-320, "y":-135, "dr": 3, "scale":2, "spawn":30, "time":"third", "offset":2.5},
+		{"image": "triangle", "x":   0, "y":-125, "dr": 5, "scale":1, "spawn":30, "time":"third", "offset":2.5},
+		{"image": "triangle", "x":  60, "y": -45, "dr":-5, "scale":4, "spawn":30, "time":"third", "offset":3.0},
+		{"image": "triangle", "x":-260, "y":-205, "dr": 4, "scale":2, "spawn":30, "time":"third", "offset":3.0},
+		{"image": "triangle", "x": -20, "y":  20, "dr": 2, "scale":3, "spawn":30, "time":"third", "offset":3.5},
+		{"image": "triangle", "x":-220, "y":-120, "dr": 1, "scale":2, "spawn":30, "time":"third", "offset":3.5},
+		{"image": "triangle", "x":  50, "y": 270, "dr":-1, "scale":3, "spawn":30, "time":"third", "offset":4.0},
+		{"image": "triangle", "x":-120, "y": 120, "dr": 2, "scale":3, "spawn":30, "time":"third", "offset":4.0}
+	],
+	"pickups": [
+		{"effect":"tp", "amount":100, "x":0, "y":0, "active":240, "spawn":5, "time":"power1"},
+		{"effect":"tp", "amount":100, "x":0, "y":0, "active":240, "spawn":5, "time":"power2"},
+		{"effect":"tp", "amount":100, "x":200, "y":200, "active":240, "spawn":5, "time":"third", "offset":1.7},
+		{"effect":"tp", "amount":100, "x":-200, "y":-200, "active":240, "spawn":5, "time":"third", "offset":1.7}
+	],
+	"meta":{
+		"name-internal":"lvl_tutorial_03",
+		"name-external":"Tutorial 3",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}

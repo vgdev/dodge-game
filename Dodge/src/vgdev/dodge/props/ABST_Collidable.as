@@ -51,6 +51,7 @@ package vgdev.dodge.props
 			mc_object.y = setParam("y", 0);
 			dx = setParam("dx", 0);
 			dy = setParam("dy", 0);
+			dr = setParam("dr", 0);
 			mc_object.rotation = setParam("rot", 0);
 			mc_object.scaleX = mc_object.scaleY = setParam("scale", 1);
 			mc_object.scaleX = setParam("scaleX", mc_object.scaleX);

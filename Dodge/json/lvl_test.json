@@ -1,7 +1,7 @@
 {
 	"anchors":{
-		"apple":121,
-		"test":1,
+		"apple":1,
+		"test":121,
 		"orange":6
 	},
 	"obstacles": [
