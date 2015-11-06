@@ -10,6 +10,8 @@ package vgdev.dodge
 		public var lvl_tutorial_01:Class;
 		[Embed(source = "../../../json/lvl_tutorial_02.json", mimeType = "application/octet-stream")]
 		public var lvl_tutorial_02:Class;
+		[Embed(source = "../../../json/lvl_hallways.json", mimeType = "application/octet-stream")]
+		public var lvl_hallways:Class;
 		
 		[Embed(source = "../../../json/lvl_tutorial.json", mimeType = "application/octet-stream")]
 		public var lvl_tutorial:Class;
@@ -31,6 +33,7 @@ package vgdev.dodge
 
 			levels["Tutorial 1"] = JSON.parse(new lvl_tutorial_01());
 			levels["Tutorial 2"] = JSON.parse(new lvl_tutorial_02());
+			levels["Hallways"] = JSON.parse(new lvl_hallways());
 
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
 			levels["Generic Test"] = JSON.parse(new lvl_test());
@@ -38,7 +41,7 @@ package vgdev.dodge
 			levels["Pickup Test"] = JSON.parse(new lvl_pickupTest());
 
 			// set up levelPages array
-			levelPages[0] = ["Tutorial 1", "Tutorial 2", null, null, null, null, null, null];
+			levelPages[0] = ["Tutorial 1", "Tutorial 2", null, null, "Hallways", null, null, null];
 			levelPages[1] = ["Pickup Test", null, null, null, null, null, "Generic Test", null];
 		}
 		

@@ -34,8 +34,8 @@ package vgdev.dodge.props
 		
 		public var alive:Boolean = true;			// if the player is alive and playable
 		
-		private var timePointsMax:int = 300;
-		private var timePoints:int = 300;
+		private var timePointsMax:int = 100;
+		private var timePoints:int = 100;
 		private const TP_CHANGE:int = 1;			// set to 0 for debugging - infinite TP
 		
 		private var actualScore:int = 0;

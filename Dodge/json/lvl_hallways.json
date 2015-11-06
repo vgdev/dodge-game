@@ -1,0 +1,54 @@
+{
+	"anchors":{
+		"first":2,
+		"second":6,
+		"third":14.5,
+		"fourth":20.5
+	},
+	"obstacles": [
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"first"},
+		{"shape": "rect", "x":-800, "y":0, "dx":13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"first", "offset":1},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"first", "offset":2},
+		
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"second"},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"second"},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":4, "scaleY": 2, "spawn":30, "active":120, "time":"second", "offset":1.7},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"second", "offset":3.4},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"second", "offset":3.4},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"second", "offset":5.6},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":8, "scaleY": 1, "spawn":30, "active":120, "time":"second", "offset":6},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":8, "scaleY": 1, "spawn":30, "active":120, "time":"second", "offset":6},
+		
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"third"},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"third"},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"third", "offset":1.4},
+		{"shape": "rect", "x":800, "y":-250, "dx":-13, "scaleX":8, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":1.7},
+		{"shape": "rect", "x":800, "y":250, "dx":-13, "scaleX":8, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":1.9},
+		{"shape": "rect", "x":800, "y":-100, "dx":-13, "scaleX":2, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":2.2},
+		{"shape": "rect", "x":800, "y":100, "dx":-13, "scaleX":2, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":2.4},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":6, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":3.6},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":6, "scaleY": 1, "spawn":30, "active":120, "time":"third", "offset":3.8},
+		{"shape": "rect", "x":800, "y":  0, "dx":-13, "scaleX":4, "scaleY": 1.2, "spawn":30, "active":120, "time":"third", "offset":4},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"third", "offset":5},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"third", "offset":5},
+		
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"fourth"},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":8, "scaleY": 2, "spawn":30, "active":120, "time":"fourth"},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":4, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":1.7},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":4, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":2.9},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":4, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":2.9},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":2, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":3.8},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":2, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":4.5},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":2, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":4.5},
+		{"shape": "rect", "x":800, "y":0, "dx":-13, "scaleX":1.5, "scaleY": 2, "spawn":30, "active":120, "time":"fourth", "offset":5.2},
+		{"shape": "rect", "x":800, "y":-200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"fourth", "offset":5.8},
+		{"shape": "rect", "x":800, "y":200, "dx":-13, "scaleX":0.5, "scaleY": 2.5, "spawn":30, "active":120, "time":"fourth", "offset":5.8}
+	],
+	"meta":{
+		"name-internal":"lvl_hallways",
+		"name-external":"Hallways",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}
