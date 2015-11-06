@@ -1,0 +1,52 @@
+{
+	"anchors":{
+		"first":2,
+		"second":9,
+		"third":18,
+		"fourth":22
+	},
+	"obstacles": [
+		{"type":"targeted", "image": "triangle", "x":0, "y":-200, "velocity":9, "spawn":90, "active":100, "time":"first"},
+		{"type":"targeted", "image": "triangle", "x":-200, "y":200, "velocity":9, "spawn":90, "active":100, "time":"first", "offset":4},
+		{"type":"targeted", "image": "triangle", "x":200, "y":200, "velocity":9, "spawn":90, "active":100, "time":"first", "offset":4},
+		
+		{"type":"targeted", "image": "triangle", "x":100, "y":100, "velocity":9, "spawn":90, "active":100, "time":"second"},
+		{"type":"targeted", "image": "triangle", "x":-300, "y":250, "velocity":9, "spawn":90, "active":100, "time":"second", "offset":1},
+		{"type":"targeted", "image": "triangle", "x":-100, "y":-100, "velocity":9, "spawn":90, "active":100, "time":"second", "offset":2},
+		{"type":"targeted", "image": "triangle", "x":0, "y":0, "velocity":9, "spawn":90, "active":100, "time":"second", "offset":3},
+		{"type":"targeted", "image": "triangle", "x":200, "y":-200, "velocity":9, "spawn":90, "active":100, "time":"second", "offset":4},
+		
+		{"type":"targeted", "image": "triangle", "x": 100, "y":   0, "velocity":12, "spawn":60, "active":100, "time":"third"},
+		{"type":"targeted", "image": "triangle", "x":-100, "y":-100, "velocity":12, "spawn":60, "active":100, "time":"third", "offset":0.5},
+		{"type":"targeted", "image": "triangle", "x": 150, "y": 100, "velocity":12, "spawn":60, "active":100, "time":"third", "offset":1.0},
+		{"type":"targeted", "image": "triangle", "x":-150, "y":-200, "velocity":12, "spawn":60, "active":100, "time":"third", "offset":1.5},
+		{"type":"targeted", "image": "triangle", "x": 200, "y": 150, "velocity":12, "spawn":60, "active":100, "time":"third", "offset":2.0},
+		{"type":"targeted", "image": "triangle", "x":-200, "y": 200, "velocity":12, "spawn":60, "active":100, "time":"third", "offset":2.5},
+		
+		{"type":"targeted", "image": "triangle", "x":  30, "y":   0, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth"},
+		{"type":"targeted", "image": "triangle", "x":   0, "y":-200, "velocity":12, "scale":2, "spawn":60, "active":100, "time":"fourth", "offset":0.25},
+		{"type":"targeted", "image": "triangle", "x": 250, "y":-100, "velocity":12, "scale":2, "spawn":60, "active":100, "time":"fourth", "offset":0.50},
+		{"type":"targeted", "image": "triangle", "x": 150, "y":-220, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":0.75},
+		{"type":"targeted", "image": "triangle", "x":-220, "y":  50, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":1.00},
+		{"type":"targeted", "image": "triangle", "x": 300, "y":-220, "velocity":12, "scale":2, "spawn":60, "active":100, "time":"fourth", "offset":1.25},
+		{"type":"targeted", "image": "triangle", "x":-300, "y": 220, "velocity":12, "scale":3, "spawn":60, "active":100, "time":"fourth", "offset":1.50},
+		{"type":"targeted", "image": "triangle", "x": -20, "y":-300, "velocity":12, "scale":2, "spawn":60, "active":100, "time":"fourth", "offset":1.75},
+		{"type":"targeted", "image": "triangle", "x": 150, "y":-120, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":2.00},
+		{"type":"targeted", "image": "triangle", "x": 300, "y": 100, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":2.25},
+		{"type":"targeted", "image": "triangle", "x":-100, "y":-100, "velocity":12, "scale":2, "spawn":60, "active":100, "time":"fourth", "offset":2.50},
+		{"type":"targeted", "image": "triangle", "x":-220, "y": 220, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":2.75},
+		{"type":"targeted", "image": "triangle", "x": 100, "y":   0, "velocity":12, "scale":4, "spawn":60, "active":100, "time":"fourth", "offset":3.00},
+		{"type":"targeted", "image": "triangle", "x": 320, "y": 190, "velocity":12, "scale":1, "spawn":60, "active":100, "time":"fourth", "offset":3.25}
+	],
+	"pickups": [
+		{"effect":"tp", "amount":100, "x":0, "y":0, "active":240, "spawn":5, "time":"fourth", "offset":1.5}
+	],
+	"meta":{
+		"name-internal":"lvl_targeted",
+		"name-external":"You're It",
+		"bg":"circles",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}
