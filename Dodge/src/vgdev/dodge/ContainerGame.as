@@ -13,6 +13,7 @@
 	import vgdev.dodge.props.Player;
 	import vgdev.dodge.mechanics.TimeScale;
 	import flash.events.MouseEvent;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Primary game container and controller
@@ -67,9 +68,9 @@
 			game.mc_over.menuOver.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
 			game.mc_over.menuOver.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
 			
-			// TODO remove later, temporary background FX
-			for (var i:int = 0; i < 100; i++)
-				game.mc_bg.addChild(new StarTemp());
+			if (eng.currLevel != "Arrow Assault")
+				for (var i:int = 0; i < 100; i++)
+					game.mc_bg.addChild(new StarTemp());
 				
 			// set up the player
 			player = new Player(this);

@@ -1,0 +1,18 @@
+{
+	"anchors":{
+		"first":4,
+		"second":11
+	},
+	"obstacles": [
+		{"image": "apple", "x":0, "y":0, "scale":2, "spawn":60, "time":"first"},
+		
+		{"shape": "rect", "x":-250, "y":0, "scaleX":3, "scaleY":6, "spawn":60,  "time":"first_half", "offset":2.5},
+	],
+	"meta":{
+		"name-internal":"lvl_fruitFrenzy",
+		"name-external":"Fruit Frenzy",
+		"format":"dodge-level",
+		"format-version":1,
+		"start-time":0
+	}
+}
