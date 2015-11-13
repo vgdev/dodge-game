@@ -76,7 +76,7 @@
 			player = new Player(this);
 			game.container_player.addChild(player.mc_object);
 			
-			SoundManager.playBGM("bgm_main");
+			//SoundManager.playBGM("bgm_main");
 			
 			obstacleTimeline = new ObstacleTimeline();
 			
@@ -88,11 +88,11 @@
 			engine.stage.focus = engine.stage;
 			
 			// tutorial
-			if (eng.currLevel == "Tutorial 1")
+			if (eng.currLevel == "Simple Dodge")
 				game.mc_tutorial.gotoAndPlay("move");
-			else if (eng.currLevel == "Tutorial 2")
+			else if (eng.currLevel == "Slow it Down")
 				game.mc_tutorial.gotoAndPlay("slow");
-			else if (eng.currLevel == "Tutorial 3")
+			else if (eng.currLevel == "Pick it Up")
 				game.mc_tutorial.gotoAndPlay("pickups");
 		}
 		

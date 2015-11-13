@@ -12,25 +12,53 @@ package vgdev.dodge
 		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
 		private static var bgm_main:Class;
 		
+		[Embed(source = "../../../bgm/SFX_death.mp3")]
+		private static var SFX_death:Class;
+		[Embed(source = "../../../bgm/SFX_fast.mp3")]
+		private static var SFX_fast:Class;
+		[Embed(source = "../../../bgm/SFX_power.mp3")]
+		private static var SFX_power:Class;
+		[Embed(source="../../../bgm/SFX_slow.mp3")]
+		private static var SFX_slow:Class;
 		
+		private static var sounds:Object = new Object();
 		private static var bgm:SoundChannel;
+		
+		private static var currentBGM:String = "";
 		
 		public function SoundManager() 
 		{
 			trace("WARNING: Should not instantiate SoundManager class!");
 		}
 		
-		public static function play(sound:String):void
+		public static function playSound(sound:String):void
 		{
+			var snd:Sound;
 			switch (sound)
 			{
+				case "sfx_death":
+					snd = (new SFX_death()) as Sound;
+				break;
+				case "sfx_fast":
+					snd = (new SFX_fast()) as Sound;
+				break;
+				case "sfx_power":
+					snd = (new SFX_power()) as Sound;
+				break;
+				case "sfx_slow":
+					snd = (new SFX_slow()) as Sound;
+				break;
 				default:
 					trace("WARNING: No sound located for " + sound + "!");
 			}
+			if (snd)
+				snd.play();
 		}
 		
 		public static function playBGM(music:String):void
 		{
+			if (currentBGM == music)
+				return;
 			stopBGM();
 			
 			var snd:Sound;
@@ -46,7 +74,9 @@ package vgdev.dodge
 					trace("WARNING: No music located for " + music + "!");
 					return;
 			}
-			//bgm = snd.play(0, 9999);
+			currentBGM = music;
+			
+			bgm = snd.play(0, 9999);
 		}
 		
 		public static function stopBGM():void

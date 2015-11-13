@@ -7,6 +7,7 @@ package vgdev.dodge.props
 	import flash.ui.Keyboard;
 	import vgdev.dodge.ContainerGame;
 	import vgdev.dodge.mechanics.TimeScale;
+	import vgdev.dodge.SoundManager;
 	
 	/**
 	 * Instance of the player
@@ -41,6 +42,8 @@ package vgdev.dodge.props
 		private var actualScore:int = 0;
 		private var displayedScore:int = 0;
 		private const CHANGE_SCORE:int = 5;
+		
+		private var cancelSpeedUp:Boolean = false;
 		
 		public function Player(_cg:ContainerGame)
 		{
@@ -89,7 +92,12 @@ package vgdev.dodge.props
 				if (timePoints > 0)
 					TimeScale.slowDown();
 				else
+				{
 					TimeScale.speedUp();
+					if (!cancelSpeedUp)
+						SoundManager.playSound("sfx_fast");
+					cancelSpeedUp = true;
+				}
 				changeTimePoints( -TP_CHANGE * 2);
 			}
 			else
@@ -221,6 +229,12 @@ package vgdev.dodge.props
 					keysDown[RIGHT] = true;
 				break;
 				case Keyboard.SHIFT:
+					if (timePoints > 0)
+					{
+						cancelSpeedUp = false;
+						if (!keysDown[TIME])
+						SoundManager.playSound("sfx_slow");
+					}
 					keysDown[TIME] = true;
 				break;
 			}
@@ -248,6 +262,8 @@ package vgdev.dodge.props
 				break;
 				case Keyboard.SHIFT:
 					keysDown[TIME] = false;
+					if (TimeScale.s_scale < 1 && !cancelSpeedUp)
+						SoundManager.playSound("sfx_fast");
 				break;
 			}
 		}
@@ -288,6 +304,7 @@ package vgdev.dodge.props
 		{
 			if (!alive) return;
 			alive = false;
+			SoundManager.playSound("sfx_death");
 			
 			mc_object.play();
 			

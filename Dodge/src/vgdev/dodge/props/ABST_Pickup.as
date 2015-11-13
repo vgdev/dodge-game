@@ -5,6 +5,7 @@ package vgdev.dodge.props
 	import flash.geom.Point;
 	import vgdev.dodge.mechanics.TimeScale;
 	import vgdev.dodge.mechanics.HitTester;
+	import vgdev.dodge.SoundManager;
 	
 	/**
 	 * Abstract class representing a pickup or powerup
@@ -54,7 +55,7 @@ package vgdev.dodge.props
 				// idk, maybe TODO something with this later
 				currentTime = activeTime;
 				activateEffects();
-				trace("Yes! Pickup obtained!");
+				SoundManager.playSound("sfx_power");
 				return true;
 			}
 			return false;

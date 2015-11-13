@@ -61,8 +61,9 @@
 				levelBtns[i].hitbox.addEventListener(MouseEvent.CLICK, onLevel);
 			}
 			
-			swc.mc_levels.base.btn_left.addEventListener(MouseEvent.CLICK, onLevelLeft);
-			swc.mc_levels.base.btn_right.addEventListener(MouseEvent.CLICK, onLevelRight);
+			//swc.mc_levels.base.btn_left.addEventListener(MouseEvent.CLICK, onLevelLeft);
+			//swc.mc_levels.base.btn_right.addEventListener(MouseEvent.CLICK, onLevelRight);
+			swc.mc_levels.base.btn_left.visible = swc.mc_levels.base.btn_right.visible = false;
 			
 			switchToPage(0);
 			
@@ -89,12 +90,12 @@
 		public function switchToPage(page:int):void
 		{
 			// hide or show left and right page buttons
-			swc.mc_levels.base.btn_left.visible = false;
+			/*swc.mc_levels.base.btn_left.visible = false;
 			if (page > 0)
 				swc.mc_levels.base.btn_left.visible = true;
 			swc.mc_levels.base.btn_right.visible = false;
 			if (page < eng.levels.levelPages.length - 1)
-				swc.mc_levels.base.btn_right.visible = true;
+				swc.mc_levels.base.btn_right.visible = true;*/
 			
 			for (var i:int = 0; i < levelBtns.length; i++)
 			{

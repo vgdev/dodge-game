@@ -84,7 +84,7 @@ package vgdev.dodge.mechanics
 						cg.game.container_telegraphs.removeChild(obstacle.mc_object);
 					obstacles.splice(i, 1);
 					obstacle = null;
-					trace("[OM] Removed an obstacle");
+					//trace("[OM] Removed an obstacle");
 				}
 			}
 			// end update active obstacles
@@ -100,7 +100,7 @@ package vgdev.dodge.mechanics
 						cg.game.container_telegraphs.removeChild(pickup.mc_object);
 					pickups.splice(i, 1);
 					pickup = null;
-					trace("[OM] Removed an pickup");
+					//trace("[OM] Removed an pickup");
 				}
 			}
 		}

@@ -19,6 +19,8 @@ package vgdev.dodge
 		public var lvl_hallways:Class;
 		[Embed(source = "../../../json/lvl_arrows.json", mimeType = "application/octet-stream")]
 		public var lvl_arrows:Class;
+		[Embed(source = "../../../json/lvl_fruitFrenzy.json", mimeType = "application/octet-stream")]
+		public var lvl_fruitFrenzy:Class;
 		[Embed(source = "../../../json/lvl_dogeboss.json", mimeType = "application/octet-stream")]
 		public var lvl_dogeboss:Class;
 		
@@ -40,12 +42,13 @@ package vgdev.dodge
 			// set up levels object
 			levels = new Object();
 
-			levels["Tutorial 1"] = JSON.parse(new lvl_tutorial_01());
-			levels["Tutorial 2"] = JSON.parse(new lvl_tutorial_02());
-			levels["Tutorial 3"] = JSON.parse(new lvl_tutorial_03());
+			levels["Simple Dodge"] = JSON.parse(new lvl_tutorial_01());
+			levels["Slow it Down"] = JSON.parse(new lvl_tutorial_02());
+			levels["Pick it Up"] = JSON.parse(new lvl_tutorial_03());
 			levels["Hallways"] = JSON.parse(new lvl_hallways());
 			levels["You're It"] = JSON.parse(new lvl_targeted());
 			levels["Arrow Assault"] = JSON.parse(new lvl_arrows());
+			levels["Fruit Frenzy"] = JSON.parse(new lvl_fruitFrenzy());
 			levels["He's the Boss"] = JSON.parse(new lvl_dogeboss());
 
 			levels["lvl_tutorial"] = JSON.parse(new lvl_tutorial());
@@ -54,8 +57,8 @@ package vgdev.dodge
 			levels["Pickup Test"] = JSON.parse(new lvl_pickupTest());
 
 			// set up levelPages array
-			levelPages[0] = ["Tutorial 1", "Tutorial 2", "Tutorial 3", null, "Hallways", "You're It", "Arrow Assault", null];
-			levelPages[1] = ["He's the Boss", null, null, null, null, null, "Generic Test", "Pickup Test"];
+			levelPages[0] = ["Simple Dodge", "Slow it Down", "Pick it Up", "Fruit Frenzy", "Hallways", "You're It", "Arrow Assault", "He's the Boss"];
+			levelPages[1] = [null, null, null, null, null, null, null, null];
 		}
 		
 		public function getLevel(lvl:String):Object

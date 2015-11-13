@@ -78,6 +78,11 @@
     <asset path="img\peach.png" />
     <asset path="bgm\BGM_mainMenu.mp3" />
     <asset path="bgm\BGM_WildstarVanguard.mp3" />
+    <asset path="bgm\SFX_death.mp3" />
+    <asset path="bgm\SFX_fast.mp3" />
+    <asset path="bgm\SFX_menuOver.mp3" />
+    <asset path="bgm\SFX_power.mp3" />
+    <asset path="bgm\SFX_slow.mp3" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

@@ -34,7 +34,6 @@ package vgdev.dodge.props
 					updatePosition();
 					mc_object.tele.scaleX = mc_object.tele.scaleY = currentTime / spawnTime;
 					mc_object.rotation = getAngle(mc_object.x, mc_object.y, cg.player.mc_object.x, cg.player.mc_object.y) + 0;		// changed
-					trace(mc_object.rotation);
 					if (currentTime >= spawnTime)
 					{
 						currentState = STATE_ACTIVE;
