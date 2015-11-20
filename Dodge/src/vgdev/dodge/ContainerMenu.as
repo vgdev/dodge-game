@@ -59,11 +59,20 @@
 			for (var i:int = 0; i < levelBtns.length; i++)
 			{
 				levelBtns[i].hitbox.addEventListener(MouseEvent.CLICK, onLevel);
+				levelBtns[i].hitbox.addEventListener(MouseEvent.MOUSE_OVER, btnOver);
 			}
 			
 			//swc.mc_levels.base.btn_left.addEventListener(MouseEvent.CLICK, onLevelLeft);
 			//swc.mc_levels.base.btn_right.addEventListener(MouseEvent.CLICK, onLevelRight);
 			swc.mc_levels.base.btn_left.visible = swc.mc_levels.base.btn_right.visible = false;
+			
+			// attach button SFX
+			swc.mc_levels.base.btn_back.addEventListener(MouseEvent.MOUSE_OVER, btnOver);
+			swc.mc_levels.base.btn_back.addEventListener(MouseEvent.CLICK, btnDown);
+			swc.mc_credits.base.btn_back.addEventListener(MouseEvent.MOUSE_OVER, btnOver);
+			swc.mc_credits.base.btn_back.addEventListener(MouseEvent.CLICK, btnDown);
+			swc.mc_options.base.btn_back.addEventListener(MouseEvent.MOUSE_OVER, btnOver);
+			swc.mc_options.base.btn_back.addEventListener(MouseEvent.CLICK, btnDown);
 			
 			switchToPage(0);
 			
@@ -112,6 +121,7 @@
 		 */
 		private function onStart(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			swc.mc_levels.gotoAndPlay("in");
 		}
 		
@@ -121,6 +131,7 @@
 		 */
 		private function onOptions(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			swc.mc_options.gotoAndPlay("in");
 		}
 		
@@ -130,6 +141,7 @@
 		 */
 		private function onCredits(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			swc.mc_credits.gotoAndPlay("in");
 		}
 		
@@ -139,6 +151,7 @@
 		 */
 		private function onLevel(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			eng.currLevel = eng.levels.levelPages[levelPage][int(e.target.parent.name.substring(7))];
 			completed = true;
 		}
@@ -150,6 +163,8 @@
 		 */
 		private function ovrBtn(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuOver");
+			
 			// prevent mouse over transformation from breaking the tween
 			if (swc.currentFrame != swc.totalFrames)
 				return;
@@ -184,6 +199,16 @@
 				currBtn.filters = [buttonGlow];
 			if (swc.mc_marker)
 				swc.mc_marker.filters = [buttonGlow];
+		}
+		
+		protected function btnOver(e:MouseEvent):void
+		{
+			SoundManager.playSound("sfx_menuOver");
+		}
+		
+		protected function btnDown(e:MouseEvent):void
+		{
+			SoundManager.playSound("sfx_menuDown");
 		}
 
 		/**

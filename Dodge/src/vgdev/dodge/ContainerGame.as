@@ -66,10 +66,17 @@
 			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.CLICK, unpauseHelper);
 			game.mc_paused.menuPaused.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
 			game.mc_paused.menuPaused.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
+			game.mc_paused.menuPaused.btn_resume.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
+			game.mc_paused.menuPaused.btn_restart.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
+			game.mc_paused.menuPaused.btn_quit.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
+			
 			game.mc_over.visible = false;
 			game.mc_over.menuOver.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
 			game.mc_over.menuOver.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
 			game.mc_over.menuOver.btn_next.addEventListener(MouseEvent.CLICK, onNext);
+			game.mc_over.menuOver.btn_restart.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
+			game.mc_over.menuOver.btn_quit.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
+			game.mc_over.menuOver.btn_next.addEventListener(MouseEvent.MOUSE_OVER, overBtn);
 			game.mc_over.menuOver.btn_next.visible = !isLastLevel;
 			
 			if (eng.currLevel != "Arrow Assault")
@@ -216,6 +223,7 @@
 		 */
 		protected function onNext(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			engine.returnCode = engine.RET_NEXT;
 			completed = true;
 		}
@@ -228,6 +236,7 @@
 		 */
 		protected function onRestart(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			engine.returnCode = engine.RET_RESTART;
 			completed = true;
 		}
@@ -240,7 +249,13 @@
 		 */
 		protected function onQuit(e:MouseEvent):void
 		{
+			SoundManager.playSound("sfx_menuDown");
 			completed = true;
+		}
+		
+		protected function overBtn(e:MouseEvent):void
+		{
+			SoundManager.playSound("sfx_menuOver");
 		}
 
 		/**

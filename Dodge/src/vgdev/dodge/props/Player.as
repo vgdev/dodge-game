@@ -114,8 +114,6 @@ package vgdev.dodge.props
 		{
 			mc_object.x = changeWithLimit(mc_object.x, dx, -400, 400);
 			mc_object.y = changeWithLimit(mc_object.y, dy, -300, 300);
-			
-			//trace("PLAYER COORDINATES: (" + mc_object.x + "," + mc_object.y + ")");
 		}
 		
 		/**
@@ -217,23 +215,28 @@ package vgdev.dodge.props
 			switch (e.keyCode)
 			{
 				case Keyboard.W:
+				case Keyboard.UP:
 					keysDown[UP] = true;
 				break;
 				case Keyboard.A:
+				case Keyboard.LEFT:
 					keysDown[LEFT] = true;
 				break;
 				case Keyboard.S:
+				case Keyboard.DOWN:
 					keysDown[DOWN] = true;
 				break;
 				case Keyboard.D:
+				case Keyboard.RIGHT:
 					keysDown[RIGHT] = true;
 				break;
 				case Keyboard.SHIFT:
+				case Keyboard.SPACE:
 					if (timePoints > 0)
 					{
 						cancelSpeedUp = false;
 						if (!keysDown[TIME])
-						SoundManager.playSound("sfx_slow");
+							SoundManager.playSound("sfx_slow");
 					}
 					keysDown[TIME] = true;
 				break;
@@ -249,18 +252,23 @@ package vgdev.dodge.props
 			switch (e.keyCode)
 			{
 				case Keyboard.W:
+				case Keyboard.UP:
 					keysDown[UP] = false;
 				break;
 				case Keyboard.A:
+				case Keyboard.LEFT:
 					keysDown[LEFT] = false;
 				break;
 				case Keyboard.S:
+				case Keyboard.DOWN:
 					keysDown[DOWN] = false;
 				break;
 				case Keyboard.D:
+				case Keyboard.RIGHT:
 					keysDown[RIGHT] = false;
 				break;
 				case Keyboard.SHIFT:
+				case Keyboard.SPACE:
 					keysDown[TIME] = false;
 					if (TimeScale.s_scale < 1 && !cancelSpeedUp)
 						SoundManager.playSound("sfx_fast");

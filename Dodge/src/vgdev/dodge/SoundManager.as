@@ -23,6 +23,11 @@ package vgdev.dodge
 		[Embed(source="../../../bgm/SFX_slow.mp3")]
 		private static var SFX_slow:Class;
 		
+		[Embed(source="../../../bgm/SFX_menuOver.mp3")]
+		private static var SFX_menuOver:Class;
+		[Embed(source="../../../bgm/SFX_menuDown.mp3")]
+		private static var SFX_menuDown:Class;
+		
 		private static var sounds:Object = new Object();
 		private static var bgm:SoundChannel;
 		
@@ -47,8 +52,11 @@ package vgdev.dodge
 				case "sfx_power":
 					snd = (new SFX_power()) as Sound;
 				break;
-				case "sfx_slow":
-					snd = (new SFX_slow()) as Sound;
+				case "sfx_menuOver":
+					snd = (new SFX_menuOver()) as Sound;
+				break;
+				case "sfx_menuDown":
+					snd = (new SFX_menuDown()) as Sound;
 				break;
 				default:
 					trace("WARNING: No sound located for " + sound + "!");
