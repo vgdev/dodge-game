@@ -76,7 +76,7 @@
 			player = new Player(this);
 			game.container_player.addChild(player.mc_object);
 			
-			//SoundManager.playBGM("bgm_main");
+			SoundManager.playBGM((eng.currLevel == "He's the Boss" ? "bgm_doge" : "bgm_main"));
 			
 			obstacleTimeline = new ObstacleTimeline();
 			

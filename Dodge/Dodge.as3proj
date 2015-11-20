@@ -83,6 +83,8 @@
     <asset path="bgm\SFX_menuOver.mp3" />
     <asset path="bgm\SFX_power.mp3" />
     <asset path="bgm\SFX_slow.mp3" />
+    <asset path="bgm\BGM_level.mp3" />
+    <asset path="bgm\BGM_levelDoge.mp3" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

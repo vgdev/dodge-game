@@ -9,8 +9,10 @@ package vgdev.dodge
 		
 		[Embed(source="../../../bgm/BGM_mainMenu.mp3")]
 		private static var bgm_menu:Class;
-		[Embed(source = "../../../bgm/BGM_WildstarVanguard.mp3")]
+		[Embed(source="../../../bgm/BGM_level.mp3")]
 		private static var bgm_main:Class;
+		[Embed(source="../../../bgm/BGM_levelDoge.mp3")]
+		private static var bgm_mainD:Class;
 		
 		[Embed(source = "../../../bgm/SFX_death.mp3")]
 		private static var SFX_death:Class;
@@ -66,6 +68,9 @@ package vgdev.dodge
 			{
 				case "bgm_main":
 					snd = new bgm_main();
+					break;
+				case "bgm_doge":
+					snd = new bgm_mainD();
 					break;
 				case "bgm_menu":
 					snd = new bgm_menu();
