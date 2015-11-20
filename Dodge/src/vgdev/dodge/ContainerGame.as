@@ -32,22 +32,24 @@
 		public var obstacleManager:ObstacleManager;
 		public var obstacleLoader:ObstacleLoader;
 		
-		public var gameActive:Boolean = true;		// TODO change later
+		public var gameActive:Boolean = true;
 		public var gamePaused:Boolean = false;
 		
 		private var overCounter:int = 0;
 		private var json:Object;					// level data
+		private var isLastLevel:Boolean = false;
 
 		/**
 		 * A MovieClip containing all of a Dodge level
 		 * @param	eng			A reference to the Engine
 		 * @param	_json		Level data JSON object
 		 */
-		public function ContainerGame(eng:Engine, _json:Object)
+		public function ContainerGame(eng:Engine, _json:Object, _isLastLevel:Boolean = false)
 		{
 			super();
 			engine = eng;
 			json = _json;
+			isLastLevel = _isLastLevel;
 			
 			// set up the game MovieClip
 			game = new SWC_Game();
@@ -67,6 +69,8 @@
 			game.mc_over.visible = false;
 			game.mc_over.menuOver.btn_restart.addEventListener(MouseEvent.CLICK, onRestart);
 			game.mc_over.menuOver.btn_quit.addEventListener(MouseEvent.CLICK, onQuit);
+			game.mc_over.menuOver.btn_next.addEventListener(MouseEvent.CLICK, onNext);
+			game.mc_over.menuOver.btn_next.visible = !isLastLevel;
 			
 			if (eng.currLevel != "Arrow Assault")
 				for (var i:int = 0; i < 100; i++)
@@ -124,12 +128,10 @@
 						game.mc_paused.gotoAndPlay("in");
 						gamePaused = true;
 					}
-					break;
+				break;
 				case Keyboard.R:
-					// reset level
-					//if (!obstacleTimeline.gameComplete())
-						onRestart(new MouseEvent(MouseEvent.CLICK));
-					break;
+					onRestart(new MouseEvent(MouseEvent.CLICK));
+				break;
 			}
 		}
 		
@@ -170,16 +172,14 @@
 			// check if game over and needs to start the "Game Over" animation (once)
 			if (!player.alive && overCounter < 45 && ++overCounter == 45)
 			{
-				//trace("[CG] Starting Game Over");
 				game.mc_over.gotoAndPlay(1);
+				game.mc_over.menuOver.btn_next.visible = false;
 				return completed;
 			}
 			
 			//  check if stage cleared and needs to start the "Stage Clear" animation (once)
 			if (obstacleTimeline.gameComplete() && !obstacleManager.hasObstacles() && game.mc_over.currentFrame == 1)
 			{
-				trace(obstacleManager.hasObstacles());
-				//trace("[CG] Starting Stage Clear");
 				game.mc_over.gotoAndPlay(1);
 				game.mc_over.menuOver.gotext.gotoAndStop(2);
 				return completed;
@@ -205,9 +205,19 @@
 		 */
 		public function endStage():void
 		{
-			// rather clunky, TODO fix later
 			obstacleManager.reset();
 			obstacleTimeline.frameNow = obstacleTimeline.highestFrame;
+		}
+
+		/**
+		 * Callback for the "Next" button in the pause menu
+		 * Immediately quit the level and go to the next game state, defined in Engine
+		 * @param	e		not used
+		 */
+		protected function onNext(e:MouseEvent):void
+		{
+			engine.returnCode = engine.RET_NEXT;
+			completed = true;
 		}
 		
 		/**

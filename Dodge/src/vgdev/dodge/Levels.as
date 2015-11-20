@@ -38,7 +38,6 @@ package vgdev.dodge
 		
 		public function Levels() 
 		{
-			// TODO make JSON?
 			// set up levels object
 			levels = new Object();
 
@@ -58,13 +57,18 @@ package vgdev.dodge
 
 			// set up levelPages array
 			levelPages[0] = ["Simple Dodge", "Slow it Down", "Pick it Up", "Fruit Frenzy", "Hallways", "You're It", "Arrow Assault", "He's the Boss"];
-			levelPages[1] = [null, null, null, null, null, null, null, null];
 		}
 		
 		public function getLevel(lvl:String):Object
 		{
-			trace("Returning: " + lvl);
 			return levels[lvl];
+		}
+		
+		public function getNextLevelName(lvl:String):String
+		{
+			if (lvl == "He's the Boss")
+				return levels["He's the Boss"];
+			return levelPages[0][levelPages[0].indexOf(lvl) + 1];
 		}
 	}
 }
