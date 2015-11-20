@@ -52,6 +52,9 @@ package vgdev.dodge
 				case "sfx_power":
 					snd = (new SFX_power()) as Sound;
 				break;
+				case "sfx_slow":
+					snd = (new SFX_slow()) as Sound;
+				break;
 				case "sfx_menuOver":
 					snd = (new SFX_menuOver()) as Sound;
 				break;
